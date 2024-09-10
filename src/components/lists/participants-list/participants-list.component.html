@@ -1,0 +1,14 @@
+<app-list-component
+[items]="dataServ.participants"
+[(selectedItem)]="selectedParticipant"
+[listWidth]="'300px'"
+[itemTemplate]="participantTemplate"
+>
+</app-list-component>
+
+<ng-template #participantTemplate let-item>
+<div class="item-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+  <p>{{ item.name }}</p>
+  <button pButton icon="pi pi-trash" class="p-button-danger"></button>
+</div>
+</ng-template>

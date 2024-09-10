@@ -118,7 +118,7 @@ export class DataService {
       id: 14,
       name: 'Esteban'
     },
-    {
+  /*  {
       id: 15,
       name: 'Gustavo'
     },
@@ -137,7 +137,7 @@ export class DataService {
     {
       id: 19,
       name: 'Federico'
-    }
+    }/*/
 
 
 
@@ -171,14 +171,25 @@ export class DataService {
 
     this.sorted = arrayCopy
 
-    this.activities.forEach((activity, index) => {
+    let sortedIndex = 0; // Índice inicial para recorrer this.sorted
+    let totalParticipants = this.sorted.length; // Total de participantes disponibles
+    
+    this.activities.forEach((activity) => {
+      let numElegidos = 2; // Por defecto, asignamos 2 participantes
       if (activity.name === 'Jugos y agradece' || activity.name === 'Levanta y barre' || activity.name === 'Lista') {
-        activity.elegidos = this.sorted.slice(index * 2, index * 2 + 1);
-      } else {
-      activity.elegidos = this.sorted.slice(index * 2, index * 2 + 2);
+        numElegidos = 1; // Estas actividades solo requieren 1 participante
       }
-    });
-
+    
+      // Asegura que no se exceda el número de participantes disponibles
+      if (sortedIndex + numElegidos <= totalParticipants) {
+        activity.elegidos = this.sorted.slice(sortedIndex, sortedIndex + numElegidos);
+        sortedIndex += numElegidos;
+      } else {
+        // Si no hay suficientes participantes para asignar a esta actividad, asigna lo que queda
+        activity.elegidos = this.sorted.slice(sortedIndex, totalParticipants);
+        sortedIndex = totalParticipants; // Asegura que no se intente asignar más participantes
+      }
+        });
   }
 
   addActivity(value: string) : void {

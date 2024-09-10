@@ -5,3 +5,26 @@
 .my-custom-list {
     min-height: 500px;
 }
+
+#printSection {
+    display: none;
+}
+
+@media print {
+    /* Oculta todo el contenido de la página */
+    body * {
+      display: none;
+    }
+  
+    /* Muestra únicamente el contenido dentro de #printSection */
+    #printSection, #printSection * {
+      display: block;
+    }
+  
+    /* Ajusta la posición de #printSection durante la impresión */
+    #printSection {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+}

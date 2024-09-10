@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
@@ -30,6 +30,8 @@ interface Actividad {
 export class AppComponent {
   title = 'angular-electron-app';
 
+  @ViewChild('printSection') printSection!: ElementRef;
+
   value: string = '';
   valuee: string = '';
 
@@ -44,7 +46,7 @@ export class AppComponent {
 
   addParticipantAndClear() {
     if (this.valuee.trim()) {
-      this.dataServ.addParticipant(this.valuee);
+      /*this.dataServ.addParticipant(this.valuee);*/
       this.showToastt(this.valuee)
       this.valuee = ''; // Limpiar el campo después de agregar
     }
@@ -99,6 +101,32 @@ export class AppComponent {
   removeParticipantAndShowToast(item: any, selectedParticipant: any) {
     this.dataServ.removeParticipant(item, selectedParticipant);
     this.showToastttt(item.name); // Asumiendo que `selectedActivity` tiene una propiedad `name`
+  }
+  print() {
+    const printContent = this.printSection.nativeElement.innerHTML;
+    const printWindow = window.open('', '', 'height=600,width=800');
+  
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Imprimir</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              /* Aquí puedes agregar estilos personalizados para la impresión */
+            </style>
+          </head>
+          <body>
+            ${printContent}
+          </body>
+        </html>
+      `);
+  
+      printWindow.document.close(); // Cerrar el documento para completar su escritura
+      printWindow.focus(); // Enfocar la nueva ventana para la impresión
+      printWindow.print(); // Ejecutar la impresión
+      printWindow.close(); // Cerrar la ventana después de la impresión
+    }
   }
 
 }

@@ -60,84 +60,109 @@ export class DataService {
   participants: Participant[] = [
     {
       id: 0,
-      name: '👑 Chiqui 👑'
+      name: '👑 Chiqui 👑',
+      realname: 'Alejandro Godino'
     },
     {
       id: 1,
-      name: 'Anabella'
+      name: 'Anabella',
+      realname: 'Anabella Di Cosmo'
     },
     {
       id: 2,
-      name: 'Brian'
+      name: 'Brian',
+      realname: 'Brian Jones'
     },
     {
       id: 3,
-      name: 'Antonela'
+      name: 'Antonela',
+      realname: 'Antonela Deleba'
     },
     {
       id: 4,
-      name: 'Brenda'
+      name: 'Brenda',
+      realname: 'Brenda Sernoqui'
     },
     {
       id: 5,
-      name: 'Max'
+      name: 'Max',
+      realname: 'Max Baltzer'
     },
     {
       id: 6,
-      name: 'Martín'
+      name: 'Martín',
+      realname: 'Martín Fernandez'
     },
     {
       id: 7,
-      name: 'Tate'
+      name: 'Tate',
+      realname: 'Juan Carlos Lescano'
     },
     {
       id: 8,
-      name: 'Pato'
+      name: 'Pato',
+      realname: 'Patricio Miranda'
     },
     {
       id: 9,
-      name: 'Ramiro'
+      name: 'Ramiro',
+      realname: 'Ramiro Gonzales'
     },
     {
       id: 10,
-      name: 'Marcelo'
+      name: 'Marcelo',
+      realname: 'Marcelo García'
     },
     {
       id: 11,
-      name: 'Julieta'
+      name: 'Julieta',
+      realname: 'Julieta Draghi'
     },
     {
       id: 12,
-      name: 'Victor'
+      name: 'Victor',
+      realname: 'Victor Ortiz'
     },
     {
       id: 13,
-      name: 'Juan Pablo'
+      name: 'Juan Pablo',
+      realname: 'Juan Pablo Benito'
     },
     {
       id: 14,
-      name: 'Esteban'
+      name: 'Esteban',
+      realname: 'Esteban Perafán'
     },
-  /*  {
+    {
       id: 15,
-      name: 'Gustavo'
+      name: 'Gustavo',
+      realname: 'Gustavo Governatore'
     },
     {
       id: 16,
-      name: 'Nacho'
+      name: 'Nacho',
+      realname: 'Ignacio Broda'
     },
     {
       id: 17,
-      name: 'Lucas'
+      name: 'Lucas',
+      realname: 'Lucas Quevedo'
     },
     {
       id: 18,
-      name: 'Franco'
+      name: 'Franco',
+      realname: 'Franco'
     },
     {
       id: 19,
-      name: 'Federico'
-    }/*/
+      name: 'Federico',
+      realname: 'Federico Locret'
+    },
+    {
+      id: 20,
+      name: 'Tony',
+      realname: 'Antonio Rodriguez'
+    }
 
 
 
@@ -201,13 +226,13 @@ export class DataService {
     this.activities.push(newActivity)
   }
 
-  addParticipant(value: string) : void {
+ /* addParticipant(value: string) : void {
     let newParticipant = {
       id: this.participants[this.participants.length-1].id+1,
       name: value
     }
     this.participants.push(newParticipant)
-  }
+  }*/
 
 
 }

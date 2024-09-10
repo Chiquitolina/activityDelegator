@@ -87,7 +87,7 @@
             </div>
           </ng-template>
         </p-listbox>
-        <div class="d-flex align-items-center w-100">
+        <div class="d-flex align-items-center w-100 justify-content-between">
           <p-floatLabel style="margin-top: 2rem">
             <input pInputText [(ngModel)]="valuee" />
             <label for="username">Añadir participante</label>
@@ -99,8 +99,19 @@
               [disabled]="valuee === ''"
             />
           </p-floatLabel>
+          <p-button
+          label="Imprimir"
+          [raised]="true"
+          [style]="{'border-radius': '0.5rem', 'margin-top': '2rem' }"
+          (click)="print()"
+        />
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div #printSection id="printSection">
+  <div *ngFor="let item of dataServ.participants">
+    <p>{{ item.realname }}</p>
   </div>
 </div>

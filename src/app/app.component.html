@@ -87,7 +87,7 @@
             </div>
           </ng-template>
         </p-listbox>
-        <div class="d-flex align-items-center w-100 justify-content-between">
+        <div class="d-flex flex-wrap align-items-center w-100 justify-content-between">
           <p-floatLabel style="margin-top: 2rem">
             <input pInputText [(ngModel)]="valuee" />
             <label for="username">Añadir participante</label>
@@ -110,8 +110,12 @@
     </div>
   </div>
 </div>
-<div #printSection id="printSection">
-  <div *ngFor="let item of dataServ.participants">
-    <p>{{ item.realname }}</p>
+<div class="" #printSection id="printSection">
+  <div *ngFor="let item of dataServ.participants; let i = index">
+    <p><b>{{i+1}}-</b>{{ item.realname }}</p>
+  </div>
+  <div class="border" *ngFor="let item of dataServ.activities">
+    <b><span>{{ item.name }}: </span></b>
+      <span *ngFor="let elegido of item.elegidos">-{{elegido.name}}</span>
   </div>
 </div>

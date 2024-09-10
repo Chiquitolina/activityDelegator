@@ -49,12 +49,7 @@ export class DataService {
       id: 7,
       name: 'Mozos',
       elegidos: []
-    },
-    {
-      id: 8,
-      name: 'Lista',
-      elegidos: []
-    },
+    }
   ]
 
   participants: Participant[] = [
@@ -75,7 +70,7 @@ export class DataService {
     },
     {
       id: 3,
-      name: 'Antonela',
+      name: 'Anto ♑',
       realname: 'Antonela Deleba'
     },
     {
@@ -151,7 +146,7 @@ export class DataService {
     {
       id: 18,
       name: 'Franco',
-      realname: 'Franco'
+      realname: 'Franco Circo'
     },
     {
       id: 19,

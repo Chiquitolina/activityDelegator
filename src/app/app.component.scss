@@ -11,14 +11,12 @@
 }
 
 @media print {
-    /* Oculta todo el contenido de la página */
-    body * {
-      display: none;
-    }
+
   
     /* Muestra únicamente el contenido dentro de #printSection */
     #printSection, #printSection * {
-      display: block;
+      display: flex;
+      flex-direction: row;
     }
   
     /* Ajusta la posición de #printSection durante la impresión */

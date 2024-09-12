@@ -53,12 +53,21 @@
               [disabled]="value === ''"
             />
           </p-floatLabel>
+          <div>
+          <p-button
+          (click)="dataServ.sort(dataServ.participants)"
+          label="Ver historia"
+          [raised]="true"
+          [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem', 'margin-right': '0.5rem' }"
+          disabled
+        />
           <p-button
             (click)="dataServ.sort(dataServ.participants)"
             label="Sortear"
             [raised]="true"
             [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem' }"
           />
+        </div>
         </div>
       </div>
       <div

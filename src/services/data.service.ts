@@ -162,7 +162,7 @@ export class DataService {
       id: 21,
       name: 'Nabil',
       realname: 'Nabil'
-    }
+    },
 
 ]
 
@@ -224,13 +224,13 @@ export class DataService {
     this.activities.push(newActivity)
   }
 
- /* addParticipant(value: string) : void {
+ addParticipant(value: string) : void {
     let newParticipant = {
       id: this.participants[this.participants.length-1].id+1,
-      name: value
+      name: value,
+      realname: value
     }
     this.participants.push(newParticipant)
-  }*/
-
+    }
 
 }

@@ -46,7 +46,7 @@ export class AppComponent {
 
   addParticipantAndClear() {
     if (this.valuee.trim()) {
-      /*this.dataServ.addParticipant(this.valuee);*/
+      this.dataServ.addParticipant(this.valuee);
       this.showToastt(this.valuee)
       this.valuee = ''; // Limpiar el campo después de agregar
     }

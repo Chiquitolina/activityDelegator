@@ -2,11 +2,12 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { IndexedDBService } from '../../services/db/indexed-db.service';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-historic-data',
   standalone: true,
-  imports: [DialogModule, TableModule],
+  imports: [DialogModule, ButtonModule, TableModule],
   templateUrl: './historic-data.component.html',
   styleUrl: './historic-data.component.scss',
   providers: []

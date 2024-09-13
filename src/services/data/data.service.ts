@@ -56,7 +56,7 @@ export class DataService {
   participants: Participant[] = [
     {
       id: 0,
-      name: '👑 Chiqui 👑',
+      name: 'Chiqui 👑',
       realname: 'Alejandro Godino'
     },
     {

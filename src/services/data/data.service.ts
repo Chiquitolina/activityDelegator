@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Activity } from '../models/Activity.model';
-import { Participant } from '../models/Participants.model';
+import { Activity } from '../../models/Activity.model';
+import { Participant } from '../../models/Participants.model';
+import { IndexedDBService } from '../db/indexed-db.service';
 
 @Injectable({
   providedIn: 'root'
@@ -166,7 +167,7 @@ export class DataService {
 
 ]
 
-  constructor() { }
+  constructor(private dbServ: IndexedDBService) { }
 
   
   removeActivity(activity: Activity, selectedActivity: Activity) : void {
@@ -174,7 +175,6 @@ export class DataService {
     if (selectedActivity === activity) {
       selectedActivity = null!;
     }
-    console.log(this.activities)
   }
 
   removeParticipant(participant: Participant, selectedParticipant: Participant) : void {
@@ -213,6 +213,8 @@ export class DataService {
         sortedIndex = totalParticipants; // Asegura que no se intente asignar más participantes
       }
         });
+
+      this.dbServ.addTask(this.activities)
   }
 
   addActivity(value: string) : void {

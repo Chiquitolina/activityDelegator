@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
@@ -6,13 +6,16 @@ import { ButtonModule } from 'primeng/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { DataService } from '../services/data.service';
+import { DataService } from '../services/data/data.service';
 import { Activity } from '../models/Activity.model';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CommonModule } from '@angular/common';
 import { Participant } from '../models/Participants.model';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { HistoricDataComponent } from '../components/historic-data/historic-data.component';
+import { DialogModule } from 'primeng/dialog';
+
 
 interface Actividad {
   name: string,
@@ -20,7 +23,7 @@ interface Actividad {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ListboxModule, FormsModule, ButtonModule, MatFormFieldModule, InputTextModule, FloatLabelModule, ToastModule, MultiSelectModule, CommonModule
+  imports: [HistoricDataComponent, DialogModule, RouterOutlet, ListboxModule, FormsModule, ButtonModule, MatFormFieldModule, InputTextModule, FloatLabelModule, ToastModule, MultiSelectModule, CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -31,6 +34,8 @@ export class AppComponent {
   title = 'angular-electron-app';
 
   @ViewChild('printSection') printSection!: ElementRef;
+
+  dialog: boolean = false;
 
   value: string = '';
   valuee: string = '';
@@ -43,6 +48,11 @@ export class AppComponent {
   constructor(public dataServ: DataService,
     private messageService: MessageService
   ) {}
+
+  
+  showDialog() {
+    this.dialog = true;
+}
 
   addParticipantAndClear() {
     if (this.valuee.trim()) {

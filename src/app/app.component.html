@@ -55,11 +55,10 @@
           </p-floatLabel>
           <div>
           <p-button
-          (click)="dataServ.sort(dataServ.participants)"
+          (onClick)="showDialog()"
           label="Ver historia"
           [raised]="true"
           [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem', 'margin-right': '0.5rem' }"
-          disabled
         />
           <p-button
             (click)="dataServ.sort(dataServ.participants)"
@@ -128,3 +127,12 @@
       <span *ngFor="let elegido of item.elegidos">-{{elegido.name}}</span>
   </div>
 </div>
+
+<p-dialog
+class="w-100"
+  header="Historia"
+  [modal]="true"
+  [(visible)]="dialog"
+>
+<app-historic-data></app-historic-data>
+</p-dialog>

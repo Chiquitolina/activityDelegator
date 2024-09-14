@@ -4,3 +4,27 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Estilos para el diálogo */
+.responsive-dialog .p-dialog {
+    width: 90vw; /* Ajusta el ancho a un porcentaje del ancho de la ventana */
+    max-width: 1000px; /* Establece un ancho máximo para pantallas grandes */
+  }
+  
+  @media (max-width: 768px) {
+    .responsive-dialog .p-dialog {
+      width: 95vw; /* Aumenta el ancho en pantallas más pequeñas */
+    }
+  }
+  
+  /* Estilos para la tabla */
+  .responsive-table {
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+  }
+  
+  @media (max-width: 768px) {
+    .responsive-table th, .responsive-table td {
+      font-size: 0.9rem; /* Ajusta el tamaño de fuente en pantallas pequeñas */
+    }
+  }
+  

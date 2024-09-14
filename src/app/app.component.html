@@ -129,10 +129,11 @@
 </div>
 
 <p-dialog
-class="w-100"
+class="responsive-dialog"
   header="Historia"
   [modal]="true"
   [(visible)]="dialog"
+  [style]="{'width': '90vw', 'max-width': '1200px'}"
 >
 <app-historic-data></app-historic-data>
 </p-dialog>

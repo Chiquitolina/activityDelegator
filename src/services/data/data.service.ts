@@ -214,8 +214,15 @@ export class DataService {
       }
         });
 
-      this.dbServ.addTask(this.activities)
-  }
+        this.dbServ.addTask(this.activities).subscribe({
+          next: () => {
+            console.log('Actividades guardadas correctamente');
+          },
+          error: (err) => {
+            console.error('Error al guardar las actividades:', err);
+          }
+        });
+        }
 
   addActivity(value: string) : void {
     let newActivity = {

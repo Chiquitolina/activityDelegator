@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IndexedDBService {
 
+  private tasksUpdated = new Subject<void>(); // Subject para emitir actualizaciones
+
   constructor(private dbService: NgxIndexedDBService) { }
 
-  addTask(task: any) {
+  addTask(task: any) : Observable<any> {
     const taskWithTimestamp = {
       ...task,
       timestamp: new Date().toLocaleString() // O usa un valor único específico
     };
     
-    this.dbService.add('tasks', taskWithTimestamp).subscribe({
-      next: () => {
-      },
-      error: (err) => {
-      }
-    });
+    return this.dbService.add('tasks', taskWithTimestamp).pipe(
+      tap(() => this.tasksUpdated.next()) // Emitir evento de actualización
+    );
   }
 
   getAllTasks() {
@@ -28,5 +28,9 @@ export class IndexedDBService {
 
   deleteTask(id: string) {
     return this.dbService.delete('tasks', id);
+  }
+
+  getTasksUpdateListener() {
+    return this.tasksUpdated.asObservable(); // Exponer el Subject como Observable
   }
 }

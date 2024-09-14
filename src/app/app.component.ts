@@ -37,8 +37,8 @@ export class AppComponent {
 
   dialog: boolean = false;
 
-  value: string = '';
-  valuee: string = '';
+  activityInputValue: string = '';
+  participantInputValue: string = '';
 
   selectedActivity!: Activity;
   selectedParticipant!: Participant;
@@ -55,62 +55,38 @@ export class AppComponent {
 }
 
   addParticipantAndClear() {
-    if (this.valuee.trim()) {
-      this.dataServ.addParticipant(this.valuee);
-      this.showToastt(this.valuee)
-      this.valuee = ''; // Limpiar el campo después de agregar
+    if (this.participantInputValue.trim()) {
+      this.dataServ.addParticipant(this.participantInputValue);
+      this.showToast(this.participantInputValue, 'success', 'Operación exitosa', `Participante ${this.participantInputValue} añadido con éxito.`)
+      this.participantInputValue = ''; // Limpiar el campo después de agregar
     }
   }
 
-  showToast(value: string) {
+  showToast(value: string, severity: string, summary: string, detail: string) {
     this.messageService.add({
-      severity: 'success', // puede ser 'success', 'info', 'warn', 'error'
-      summary: 'Operación exitosa',
-      detail: `Actividad ${value} agregada con éxito.` ,
-    });
-  }
-
-  showToastt(value: string) {
-    this.messageService.add({
-      severity: 'success', // puede ser 'success', 'info', 'warn', 'error'
-      summary: 'Operación exitosa',
-      detail: `Participante ${value} agregado con éxito.` ,
-    });
-  }
-
-  showToasttt(value: string) {
-    this.messageService.add({
-      severity: 'success', // puede ser 'success', 'info', 'warn', 'error'
-      summary: 'Operación exitosa',
-      detail: `Actividad ${value} removida con éxito.` ,
-    });
-  }
-
-  showToastttt(value: string) {
-    this.messageService.add({
-      severity: 'success', // puede ser 'success', 'info', 'warn', 'error'
-      summary: 'Operación exitosa',
-      detail: `Participante ${value} removido con éxito.` ,
+      severity: severity,
+      summary: summary,
+      detail: detail
     });
   }
 
   addActivityAndClear() {
-    if (this.value.trim()) {
-      this.dataServ.addActivity(this.value);
-      this.showToast(this.value)
-      this.value = ''; // Limpiar el campo después de agregar la actividad
+    if (this.activityInputValue.trim()) {
+      this.dataServ.addActivity(this.activityInputValue);
+      this.showToast(this.activityInputValue, 'success', 'Operación exitosa', `Actividad ${this.activityInputValue} añadida con éxito.`)
+      this.activityInputValue = '';
     }
   }
 
   removeActivityAndShowToast(item: any, selectedActivity: any) {
     this.dataServ.removeActivity(item, selectedActivity);
-    this.showToasttt(item.name); // Asumiendo que `selectedActivity` tiene una propiedad `name`
+    this.showToast(item.name, 'success', 'Operación exitosa', `Actividad ${item.name} removida con éxito.`);
   }
 
   
   removeParticipantAndShowToast(item: any, selectedParticipant: any) {
     this.dataServ.removeParticipant(item, selectedParticipant);
-    this.showToastttt(item.name); // Asumiendo que `selectedActivity` tiene una propiedad `name`
+    this.showToast(item.name, 'success', 'Operación exitosa', `Participante ${item.name} removido con éxito.`); // Asumiendo que `selectedActivity` tiene una propiedad `name`
   }
   print() {
     const printContent = this.printSection.nativeElement.innerHTML;

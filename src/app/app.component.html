@@ -43,14 +43,14 @@
         </p-listbox>
         <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
           <p-floatLabel style="margin-top: 2rem">
-            <input pInputText id="addActivity" [(ngModel)]="value" />
+            <input pInputText id="addActivity" [(ngModel)]="activityInputValue" />
             <label for="username">Añadir actividad</label>
             <p-button
               [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
               (click)="addActivityAndClear()"
               icon="pi pi-check"
               [raised]="true"
-              [disabled]="value === ''"
+              [disabled]="activityInputValue === ''"
             />
           </p-floatLabel>
           <div>
@@ -97,14 +97,14 @@
         </p-listbox>
         <div class="d-flex flex-wrap align-items-center w-100 justify-content-between">
           <p-floatLabel style="margin-top: 2rem">
-            <input pInputText [(ngModel)]="valuee" />
+            <input pInputText [(ngModel)]="participantInputValue" />
             <label for="username">Añadir participante</label>
             <p-button
               (click)="addParticipantAndClear()"
               [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
               icon="pi pi-check"
               [raised]="true"
-              [disabled]="valuee === ''"
+              [disabled]="participantInputValue === ''"
             />
           </p-floatLabel>
           <p-button

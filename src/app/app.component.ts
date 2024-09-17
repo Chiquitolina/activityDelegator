@@ -88,6 +88,7 @@ export class AppComponent {
     this.dataServ.removeParticipant(item, selectedParticipant);
     this.showToast(item.name, 'success', 'Operación exitosa', `Participante ${item.name} removido con éxito.`); // Asumiendo que `selectedActivity` tiene una propiedad `name`
   }
+  
   print() {
     const printContent = this.printSection.nativeElement.innerHTML;
     const printWindow = window.open('', '', 'height=600,width=800');

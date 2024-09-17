@@ -47,4 +47,9 @@ export class HistoricDataComponent {
       });    });
     }
 
+    deleteTask(timestamp: string) {
+      this.dbServ.deleteTask(timestamp);
+     this.tasks = this.tasks.filter(task => task.timestamp !== timestamp);
+   }
+
 }

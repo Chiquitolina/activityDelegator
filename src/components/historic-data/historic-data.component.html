@@ -47,7 +47,7 @@
         icon="pi pi-trash"
         [raised]="true"
         severity="danger"
-        disabled
+        (click)="deleteTask(task.timestamp)"
       />
       </td>
     </tr>

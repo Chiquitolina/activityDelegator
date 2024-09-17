@@ -26,9 +26,9 @@ export class IndexedDBService {
     return this.dbService.getAll('tasks');
   }
 
-  deleteTask(id: string) {
-    return this.dbService.delete('tasks', id);
-  }
+  deleteTask(timestamp: string) {
+    this.dbService.delete('tasks', timestamp);
+ }
 
   getTasksUpdateListener() {
     return this.tasksUpdated.asObservable(); // Exponer el Subject como Observable

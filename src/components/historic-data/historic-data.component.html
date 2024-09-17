@@ -26,14 +26,105 @@
   <ng-template pTemplate="body" let-task>
     <tr>
       <td>{{ task.timestamp }}</td>
-      <td>{{ task[0].elegidos[0].name }}-{{ task[0].elegidos[1].name }}</td>
-      <td>{{ task[1].elegidos[0].name }}-{{ task[1].elegidos[1].name }}</td>
-      <td>{{ task[2].elegidos[0].name }}-{{ task[2].elegidos[1].name }}</td>
-      <td>{{ task[3].elegidos[0].name }}</td>
-      <td>{{ task[4].elegidos[0].name }}-{{ task[4].elegidos[1].name }}</td>
-      <td>{{ task[5].elegidos[0].name }}-{{ task[5].elegidos[1].name }}</td>
-      <td>{{ task[6].elegidos[0].name }}</td>
-      <td>{{ task[7].elegidos[0].name }}-{{ task[7].elegidos[1].name }}</td>
+      <div *ngFor="let elegidos of task.elegidos">
+        <td></td>
+      </div>
+      <td *ngIf="task[0]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[0].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[0].elegidos[task[0].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Cocina -->
+      <td *ngIf="task[1]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[1].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[1].elegidos[task[1].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Lava -->
+      <td *ngIf="task[2]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[2].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[2].elegidos[task[2].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Levanta y barre -->
+      <td *ngIf="task[3]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[3].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[3].elegidos[task[3].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Cierra cocina -->
+      <td *ngIf="task[4]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[4].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[4].elegidos[task[4].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Pone la mesa -->
+      <td *ngIf="task[5]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[5].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[5].elegidos[task[5].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Jugos y agradece -->
+      <td *ngIf="task[6]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[6].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[6].elegidos[task[6].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+      <!-- Mozos -->
+      <td *ngIf="task[7]?.elegidos?.length > 0">
+        <span *ngFor="let elegido of task[7].elegidos"
+          >{{ elegido.name
+          }}<span
+            *ngIf="elegido !== task[7].elegidos[task[7].elegidos.length - 1]"
+          >
+            -
+          </span></span
+        >
+      </td>
+
+
       <td class="d-flex">
         <p-button
           [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"

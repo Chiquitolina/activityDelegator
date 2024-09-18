@@ -64,11 +64,11 @@ export class DataService {
       name: 'Anabella',
       realname: 'Anabella Di Cosmo'
     },
-    {
+  /*  {
       id: 2,
       name: 'Brian',
       realname: 'Brian Jones'
-    },
+    }*/
     {
       id: 3,
       name: 'Anto ♑',
@@ -159,12 +159,6 @@ export class DataService {
       name: 'Tony',
       realname: 'Antonio Rodriguez'
     },
-    {
-      id: 21,
-      name: 'Nabil',
-      realname: 'Nabil'
-    },
-
 ]
 
   constructor(private dbServ: IndexedDBService) { }
@@ -190,44 +184,45 @@ export class DataService {
       next: (lastThreeTasks) => {
         console.log('Últimos 3 sorteos:', lastThreeTasks);
   
-        // Función para verificar si los seleccionados están en los últimos sorteos
-        const isSelectionInLastThree = (selected: any[]) => {
+        // Función para verificar si la selección actual está en los últimos 3 sorteos
+        const isSelectionInLastThree = (selected: any[]): boolean => {
           return lastThreeTasks.some(task =>
-            task.activities && task.activities.some((activity: any) =>
+            task.activities && task.activities.some((activity:any) =>
               activity.elegidos && activity.elegidos.sort().toString() === selected.sort().toString()
             )
           );
         };
   
-        const sortAndAssign = () => {
-          // Ejecutamos el sorteo actual
+        // Función para realizar el sorteo y verificar la unicidad
+        const performSort = (): void => {
           const arrayCopy = [...array];
-        
+  
           for (let i = arrayCopy.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]];
           }
-    
+  
           this.sorted = arrayCopy;
-    
+  
           let sortedIndex = 0;
           const totalParticipants = this.sorted.length;
-    
+  
           this.activities.forEach((activity) => {
             let numElegidos = 2;
             if (activity.name === 'Jugos y agradece' || activity.name === 'Levanta y barre' || activity.name === 'Lista') {
               numElegidos = 1;
             }
-    
-            if (sortedIndex + numElegidos <= totalParticipants) {
-              const selected = this.sorted.slice(sortedIndex, sortedIndex + numElegidos);
-              
-              if (isSelectionInLastThree(selected)) {
-                // Si la selección coincide con alguna de las últimas, sortear de nuevo
-                sortAndAssign();
-                return;
-              }
   
+            const selected = this.sorted.slice(sortedIndex, sortedIndex + numElegidos);
+            
+            if (isSelectionInLastThree(selected)) {
+              // Si la selección está en los últimos 3 sorteos, volvemos a realizar el sorteo
+              console.warn(`Selección repetida, volviendo a sortear: ${selected}`);
+              performSort();
+              return;
+            }
+  
+            if (sortedIndex + numElegidos <= totalParticipants) {
               activity.elegidos = selected;
               sortedIndex += numElegidos;
             } else if (sortedIndex < totalParticipants) {
@@ -239,7 +234,7 @@ export class DataService {
               console.warn(`No hay participantes disponibles para la actividad: ${activity.name}`);
             }
           });
-    
+  
           // Guardamos las actividades en IndexedDB
           this.dbServ.addTask(this.activities).subscribe({
             next: () => {
@@ -252,8 +247,8 @@ export class DataService {
           });
         };
   
-        // Ejecuta el sorteo
-        sortAndAssign();
+        // Realizamos el sorteo inicial
+        performSort();
       },
       error: (err) => {
         console.error('Error al obtener los últimos 3 sorteos:', err);

@@ -42,17 +42,6 @@
           </ng-template>
         </p-listbox>
         <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
-          <p-floatLabel style="margin-top: 2rem">
-            <input pInputText id="addActivity" [(ngModel)]="activityInputValue" />
-            <label for="username">Añadir actividad</label>
-            <p-button
-              [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
-              (click)="addActivityAndClear()"
-              icon="pi pi-check"
-              [raised]="true"
-              [disabled]="activityInputValue === ''"
-            />
-          </p-floatLabel>
           <div>
           <p-button
           (onClick)="showDialog()"

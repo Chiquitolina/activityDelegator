@@ -184,45 +184,83 @@ export class DataService {
     }
   }
 
-  sort(array: any) : void {
-    const arrayCopy = [...array];
-    
-    for (let i = arrayCopy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]];
-    }
-
-    this.sorted = arrayCopy
-
-    let sortedIndex = 0; // Índice inicial para recorrer this.sorted
-    let totalParticipants = this.sorted.length; // Total de participantes disponibles
-    
-    this.activities.forEach((activity) => {
-      let numElegidos = 2; // Por defecto, asignamos 2 participantes
-      if (activity.name === 'Jugos y agradece' || activity.name === 'Levanta y barre' || activity.name === 'Lista') {
-        numElegidos = 1; // Estas actividades solo requieren 1 participante
-      }
-    
-      // Asegura que no se exceda el número de participantes disponibles
-      if (sortedIndex + numElegidos <= totalParticipants) {
-        activity.elegidos = this.sorted.slice(sortedIndex, sortedIndex + numElegidos);
-        sortedIndex += numElegidos;
-      } else {
-        // Si no hay suficientes participantes para asignar a esta actividad, asigna lo que queda
-        activity.elegidos = this.sorted.slice(sortedIndex, totalParticipants);
-        sortedIndex = totalParticipants; // Asegura que no se intente asignar más participantes
-      }
-        });
-
-        this.dbServ.addTask(this.activities).subscribe({
-          next: () => {
-            console.log('Actividades guardadas correctamente');
-          },
-          error: (err) => {
-            console.error('Error al guardar las actividades:', err);
+  sort(array: any): void {
+    // Primero, obtenemos los últimos 3 sorteos de la base de datos
+    this.dbServ.getLastThreeTasks().subscribe({
+      next: (lastThreeTasks) => {
+        console.log('Últimos 3 sorteos:', lastThreeTasks);
+  
+        // Función para verificar si los seleccionados están en los últimos sorteos
+        const isSelectionInLastThree = (selected: any[]) => {
+          return lastThreeTasks.some(task =>
+            task.activities && task.activities.some((activity: any) =>
+              activity.elegidos && activity.elegidos.sort().toString() === selected.sort().toString()
+            )
+          );
+        };
+  
+        const sortAndAssign = () => {
+          // Ejecutamos el sorteo actual
+          const arrayCopy = [...array];
+        
+          for (let i = arrayCopy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arrayCopy[i], arrayCopy[j]] = [arrayCopy[j], arrayCopy[i]];
           }
-        });
-        }
+    
+          this.sorted = arrayCopy;
+    
+          let sortedIndex = 0;
+          const totalParticipants = this.sorted.length;
+    
+          this.activities.forEach((activity) => {
+            let numElegidos = 2;
+            if (activity.name === 'Jugos y agradece' || activity.name === 'Levanta y barre' || activity.name === 'Lista') {
+              numElegidos = 1;
+            }
+    
+            if (sortedIndex + numElegidos <= totalParticipants) {
+              const selected = this.sorted.slice(sortedIndex, sortedIndex + numElegidos);
+              
+              if (isSelectionInLastThree(selected)) {
+                // Si la selección coincide con alguna de las últimas, sortear de nuevo
+                sortAndAssign();
+                return;
+              }
+  
+              activity.elegidos = selected;
+              sortedIndex += numElegidos;
+            } else if (sortedIndex < totalParticipants) {
+              activity.elegidos = this.sorted.slice(sortedIndex, totalParticipants);
+              sortedIndex = totalParticipants;
+              console.warn(`No hay suficientes participantes para la actividad: ${activity.name}`);
+            } else {
+              activity.elegidos = [];
+              console.warn(`No hay participantes disponibles para la actividad: ${activity.name}`);
+            }
+          });
+    
+          // Guardamos las actividades en IndexedDB
+          this.dbServ.addTask(this.activities).subscribe({
+            next: () => {
+              console.log('Nuevo sorteo guardado correctamente');
+              // Después de guardar, eliminamos el sorteo más antiguo si ya tenemos más de 3
+            },
+            error: (err) => {
+              console.error('Error al guardar el sorteo:', err);
+            }
+          });
+        };
+  
+        // Ejecuta el sorteo
+        sortAndAssign();
+      },
+      error: (err) => {
+        console.error('Error al obtener los últimos 3 sorteos:', err);
+      }
+    });
+  }
+  
 
   addActivity(value: string) : void {
     let newActivity = {

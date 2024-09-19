@@ -25,7 +25,7 @@ export class IndexedDBService {
   getAllTasks(): Observable<any[]> {
     return this.dbService.getAll('tasks');
   }
-  getLastThreeTasks(): Observable<any[]> {
+  getLastThreeSorts(): Observable<any[]> {
     return this.dbService.getAll('tasks').pipe(
       map((tasks) => {
         // Invierte el array y luego toma los primeros 3 elementos

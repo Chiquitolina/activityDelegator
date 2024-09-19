@@ -226,6 +226,7 @@ export class DataService {
               numElegidos = 1;
             }
   
+            // Obtenemos los seleccionados de la copia barajada y los removemos
             const selected = this.sorted.slice(sortedIndex, sortedIndex + numElegidos);
   
             // Verificamos que la selección es un array válido
@@ -242,9 +243,14 @@ export class DataService {
               return;
             }
   
+            // Asignamos los seleccionados a la actividad
             if (sortedIndex + numElegidos <= totalParticipants) {
               activity.elegidos = selected;
               sortedIndex += numElegidos;
+  
+              // Removemos los participantes seleccionados del array 'this.sorted'
+              this.sorted = this.sorted.filter(participant => !selected.includes(participant));
+  
             } else if (sortedIndex < totalParticipants) {
               activity.elegidos = this.sorted.slice(sortedIndex, totalParticipants);
               sortedIndex = totalParticipants;
@@ -274,11 +280,14 @@ export class DataService {
           }
         };
   
-        // Realizamos el shuffle inicial del array
-        shuffleArray(array);
+        // Hacemos una copia del array original para no modificarlo
+        const arrayCopy = [...array];
   
-        // Inicializamos this.sorted con el array barajado
-        this.sorted = array;
+        // Realizamos el shuffle inicial del array copiado
+        shuffleArray(arrayCopy);
+  
+        // Inicializamos this.sorted con la copia barajada
+        this.sorted = arrayCopy;
   
         // Comenzamos el sorteo desde la primera actividad
         performSortFromActivity(0);

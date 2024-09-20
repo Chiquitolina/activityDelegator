@@ -7,6 +7,13 @@
     label="Borrar todos"
     disabled
   />
+  <p-button
+    [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem' }"
+    [raised]="true"
+    severity="success"
+    label="Añadir manuamente"
+    (onClick)="showDialog()"
+  />
 </div>
 <p-table [value]="tasks" class="responsive-table" [style]="{'width': '100%'}">
   <ng-template pTemplate="header">
@@ -144,3 +151,12 @@
     </tr>
   </ng-template>
 </p-table>
+<p-dialog
+class="responsive-dialog"
+  header="Añadir dato manualmente"
+  [modal]="true"
+  [(visible)]="dialog"
+  [style]="{'width': '90vw', 'max-width': '800px'}"
+>
+<app-add-manual-data></app-add-manual-data>
+</p-dialog>

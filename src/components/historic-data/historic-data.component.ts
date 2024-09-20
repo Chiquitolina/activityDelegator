@@ -5,16 +5,19 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { AddManualDataComponent } from '../add-manual-data/add-manual-data.component';
 
 @Component({
   selector: 'app-historic-data',
   standalone: true,
-  imports: [DialogModule, ButtonModule, TableModule, CommonModule],
+  imports: [DialogModule, ButtonModule, TableModule, CommonModule, AddManualDataComponent],
   templateUrl: './historic-data.component.html',
   styleUrl: './historic-data.component.scss',
   providers: []
 })
 export class HistoricDataComponent {
+
+  dialog: boolean = false;
 
   tasks!: any[]
   private tasksUpdateSub!: Subscription;
@@ -58,5 +61,9 @@ export class HistoricDataComponent {
         }
       });
     }
+
+    showDialog() {
+      this.dialog = true;
+  }
 
 }

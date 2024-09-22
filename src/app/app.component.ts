@@ -70,13 +70,13 @@ export class AppComponent {
     });
   }
 
-  addActivityAndClear() {
+/*  addActivityAndClear() {
     if (this.activityInputValue.trim()) {
       this.dataServ.addActivity(this.activityInputValue);
       this.showToast(this.activityInputValue, 'success', 'Operación exitosa', `Actividad ${this.activityInputValue} añadida con éxito.`)
       this.activityInputValue = '';
     }
-  }
+  }*/
 
   removeActivityAndShowToast(item: any, selectedActivity: any) {
     this.dataServ.removeActivity(item, selectedActivity);

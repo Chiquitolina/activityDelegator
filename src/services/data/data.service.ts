@@ -13,41 +13,49 @@ export class DataService {
     {
       id: 0,
       name: 'Compras',
+      participants: 2,
       elegidos: [],
     },
     {
       id: 1,
       name: 'Cocina',
+      participants: 2,
       elegidos: [],
     },
     {
       id: 2,
       name: 'Lava',
+      participants: 2,
       elegidos: [],
     },
     {
       id: 3,
       name: 'Levanta y barre',
+      participants: 1,
       elegidos: [],
     },
     {
       id: 4,
       name: 'Cierra cocina',
+      participants: 2,
       elegidos: [],
     },
     {
       id: 5,
       name: 'Pone la mesa',
+      participants: 2,
       elegidos: [],
     },
     {
       id: 6,
       name: 'Jugos y agradece',
+      participants: 1,
       elegidos: [],
     },
     {
       id: 7,
       name: 'Mozos',
+      participants: 2,
       elegidos: [],
     },
   ];
@@ -179,14 +187,14 @@ export class DataService {
     }
   }
 
-  addActivity(value: string): void {
+ /* addActivity(value: string): void {
     let newActivity = {
       id: this.activities[this.activities.length - 1].id + 1,
       name: value,
       elegidos: [],
     };
     this.activities.push(newActivity);
-  }
+  }*/
 
   addParticipant(value: string): void {
     let newParticipant = {

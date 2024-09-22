@@ -250,13 +250,19 @@ export class DataService {
       next: (lastThreeSorts) => {
         console.log('Últimos 3 sorteos:', lastThreeSorts);
   
-        const performSortFromActivity = (activityIndex: number, sortedIndex: number): void => {
+        this.cleanActivities();
+  
+        const performSortFromActivity = (activityIndex: number, sortedIndex: number, retryCount = 0): void => {
           if (!Array.isArray(this.sorted)) {
             console.error('Error: this.sorted no es un array válido.');
             return;
           }
   
           const totalParticipants = this.sorted.length;
+          if (totalParticipants === 0) {
+            console.warn('No hay más participantes disponibles.');
+            return; // Detener si no hay más participantes
+          }
   
           for (let i = activityIndex; i < this.activities.length; i++) {
             const activity = this.activities[i];
@@ -265,17 +271,25 @@ export class DataService {
               numElegidos = 1;
             }
   
-            const selected = this.sorted.slice(0, numElegidos); // Tomar los primeros seleccionados
-  
-            if (selected.length === 0) {
-              console.error('Error: No hay suficientes participantes en "selected".');
-              return;
+            // Verificar si hay suficientes participantes para asignar
+            if (this.sorted.length < numElegidos) {
+              console.warn(`No hay suficientes participantes para ${activity.name}.`);
+              return; // Detener si no hay suficientes participantes
             }
   
+            const selected = this.sorted.slice(0, numElegidos); // Tomar los primeros seleccionados
+  
             if (this.isSelectionInLastThree(selected, activity.name, lastThreeSorts)) {
-              console.warn(`Selección repetida en ${activity.name}, volviendo a sortear.`);
+              if (retryCount > 20) {
+                console.error(`Intentos máximos alcanzados para ${activity.name}, asignando participantes sin verificar repetición.`);
+                activity.elegidos = selected; // Asignar participantes sin verificar
+                this.sorted = this.sorted.slice(numElegidos); // Eliminar los seleccionados
+                continue;
+              }
+  
+              console.warn(`Selección repetida en ${activity.name}, volviendo a sortear (intento ${retryCount + 1}).`);
               this.shuffleArray(this.sorted); // Reordena todo el array
-              performSortFromActivity(i, sortedIndex); // Llama recursivamente manteniendo el índice
+              performSortFromActivity(i, sortedIndex, retryCount + 1); // Llama recursivamente, pero incrementando el contador de intentos
               return;
             }
   
@@ -317,4 +331,11 @@ export class DataService {
       },
     });
   }
+
+  cleanActivities() {
+    this.activities.forEach((activity: Activity) => {
+      activity.elegidos = []
+    })
+  }
+
 }

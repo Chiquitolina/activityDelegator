@@ -1,4 +1,18 @@
 <div class="d-flex justify-content-end w-100 p-2">
+  <p-button
+  [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem' }"
+  [raised]="true"
+  severity="success"
+  label="Añadir manuamente"
+  (onClick)="showDialog()"
+/>
+<p-button
+[style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem' }"
+icon="pi pi-trash"
+[raised]="true"
+label="Gráficos"
+disabled
+/>
 <p-button
     [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem' }"
     icon="pi pi-trash"
@@ -6,13 +20,6 @@
     severity="danger"
     label="Borrar todos"
     disabled
-  />
-  <p-button
-    [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem' }"
-    [raised]="true"
-    severity="success"
-    label="Añadir manuamente"
-    (onClick)="showDialog()"
   />
 </div>
 <p-table [value]="tasks" class="responsive-table" [style]="{'width': '100%'}">

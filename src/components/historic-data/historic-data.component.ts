@@ -7,11 +7,12 @@ import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AddManualDataComponent } from '../add-manual-data/add-manual-data.component';
 import { GraphsComponent } from '../graphs/graphs.component';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-historic-data',
   standalone: true,
-  imports: [DialogModule, ButtonModule, TableModule, CommonModule, GraphsComponent, AddManualDataComponent],
+  imports: [DialogModule, ButtonModule, TableModule, CommonModule, GraphsComponent, AddManualDataComponent, ButtonComponent],
   templateUrl: './historic-data.component.html',
   styleUrl: './historic-data.component.scss',
   providers: []

@@ -21,7 +21,7 @@ import {
 import { Activity } from '../../models/Activity.model';
 import { CommonModule } from '@angular/common';
 import { IndexedDBService } from '../../services/db/indexed-db.service';
-
+import { ButtonComponent } from '../button/button.component';
 @Component({
   selector: 'app-add-manual-data',
   standalone: true,
@@ -35,6 +35,7 @@ import { IndexedDBService } from '../../services/db/indexed-db.service';
     FormsModule,
     ButtonModule,
     MultiSelectModule,
+    ButtonComponent
   ],
   templateUrl: './add-manual-data.component.html',
   styleUrl: './add-manual-data.component.scss',

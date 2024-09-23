@@ -107,12 +107,14 @@ export class GraphsComponent {
     this.options = {
       plugins: {
         legend: {
+          position: 'right', // Puedes usar 'top', 'bottom', 'left', 'right'
           labels: {
-            usePointStyle: true,
-            color: textColor,
-          },
-        },
+            usePointStyle: true, // Hace que las leyendas utilicen un punto en lugar de un rectángulo
+          }
+        }
       },
+      responsive: true,
+      maintainAspectRatio: false // Permite ajustar el tamaño según el contenedor
     };
   }
 

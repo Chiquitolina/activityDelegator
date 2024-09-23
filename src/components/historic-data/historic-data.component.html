@@ -1,29 +1,31 @@
-<div class="d-flex flex-wrap justify-content-center w-100 p-2">
-  <p-button
-  [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem', 'margin-top': '0.5rem' }"
-  [raised]="true"
-  severity="success"
-  label="Añadir manuamente"
-  icon="pi pi-arrow-circle-up"
-  (onClick)="showDialog()"
-/>
-<p-button
-[style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem', 'margin-top': '0.5rem' }"
-[raised]="true"
-label="Visualizar data"
-(click)="showDialogGraph()"
-icon="pi pi-eye"
-/>
-<p-button
-    [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', 'width': '15rem', 'margin-top': '0.5rem' }"
-    icon="pi pi-trash"
-    [raised]="true"
-    severity="danger"
-    label="Borrar todos"
-    disabled
-  />
+<div class="d-flex flex-wrap justify-content-end w-100 p-2">
+  <app-button
+    [buttonLabel]="'Añadir manualmente'"
+    [buttonStyle]="{
+      'margin-left': '0.5rem',
+      'border-radius': '0.5rem',
+      width: '15rem',
+      'margin-top': '0.5rem'
+    }"
+    (click)="showDialog()"
+    [buttonIcon]="'pi pi-arrow-circle-up'"
+    [buttonSeverity]="'success'"
+  >
+  </app-button>
+  <app-button
+    [buttonLabel]="'Visualizar data'"
+    [buttonStyle]="{
+      'margin-left': '0.5rem',
+      'border-radius': '0.5rem',
+      width: '15rem',
+      'margin-top': '0.5rem'
+    }"
+    (click)="showDialogGraph()"
+    [buttonIcon]="'pi pi-eye'"
+  >
+  </app-button>
 </div>
-<p-table [value]="tasks" class="responsive-table" [style]="{'width': '100%'}">
+<p-table [value]="tasks" class="responsive-table" [style]="{ width: '100%' }">
   <ng-template pTemplate="header">
     <tr>
       <th>Timestamp</th>
@@ -138,41 +140,32 @@ icon="pi pi-eye"
         >
       </td>
 
-
       <td class="d-flex">
-        <p-button
-          [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
-          icon="pi pi-print"
-          [raised]="true"
-           severity="success"
-           disabled
-        />
-        <p-button
-        [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
-        icon="pi pi-trash"
-        [raised]="true"
-        severity="danger"
+        <app-button
+        [buttonStyle]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
         (click)="deleteTask(task.timestamp)"
-      />
+        [buttonIcon]="'pi pi-trash'"
+        [buttonSeverity]="'danger'"
+      ></app-button>
       </td>
     </tr>
   </ng-template>
 </p-table>
 <p-dialog
-class="responsive-dialog"
+  class="responsive-dialog"
   header="Añadir dato manualmente"
   [modal]="true"
   [(visible)]="dialog"
-  [style]="{'width': '90vw', 'max-width': '800px'}"
+  [style]="{ width: '90vw', 'max-width': '800px' }"
 >
-<app-add-manual-data></app-add-manual-data>
+  <app-add-manual-data></app-add-manual-data>
 </p-dialog>
 <p-dialog
-class="responsive-dialog"
+  class="responsive-dialog"
   header="Visualizar data"
   [modal]="true"
   [(visible)]="dialogGraph"
-  [style]="{'width': '90vw', 'max-width': '800px'}"
+  [style]="{ width: '90vw', 'max-width': '800px' }"
 >
-<app-graphs></app-graphs>
+  <app-graphs></app-graphs>
 </p-dialog>

@@ -24,13 +24,19 @@
   </div>
 
   <div class="d-flex justify-content-center">
-  <p-button
+    <app-button
     class="mt-2"
-    [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem', width: '15rem' }"
-    [raised]="true"
-    severity="success"
-    label="Confirmar"
-    type="submit"
-  ></p-button>
+    [buttonLabel]="'Confirmar'"
+    [buttonStyle]="{
+      'margin-left': '0.5rem',
+      'border-radius': '0.5rem',
+      width: '15rem',
+      'margin-top': '0.5rem'
+    }"
+    [buttonIcon]="'pi pi-arrow-circle-up'"
+    [buttonSeverity]="'success'"
+    [buttonType]="'submit'"
+  >
+  </app-button>
 </div>
 </form>

@@ -19,29 +19,28 @@
           class="d-flex flex-wrap align-items-center justify-content-between w-100"
         >
           <div>
-            <p-button
-              (onClick)="showDialog()"
-              label="Ver historia"
-              [raised]="true"
-              [style]="{
+            <app-button
+              [buttonStyle]="{
                 'margin-top': '2rem',
                 'border-radius': '0.5rem',
                 'margin-right': '0.5rem',
                 width: '10rem'
               }"
-              icon="pi pi-database"
-            />
-            <p-button
-              (click)="dataServ.sort(dataServ.participants)"
-              label="Sortear"
-              [raised]="true"
-              [style]="{
+              [buttonLabel]="'Ver historia'"
+              [buttonIcon]="'pi pi-database'"
+              (click)="showDialog()"
+            ></app-button>
+            <app-button
+              [buttonStyle]="{
                 'margin-top': '2rem',
                 'border-radius': '0.5rem',
+                'margin-right': '0.5rem',
                 width: '10rem'
               }"
-              icon="pi pi-sort-alt"
-            />
+              [buttonLabel]="'Sortear'"
+              [buttonIcon]="'pi pi-sort-alt'"
+              (click)="dataServ.sort(dataServ.participants)"
+            ></app-button>
           </div>
         </div>
       </div>
@@ -61,25 +60,27 @@
           <p-floatLabel style="margin-top: 2rem">
             <input pInputText [(ngModel)]="participantInputValue" />
             <label for="username">Añadir participante</label>
-            <p-button
+            <app-button
               (click)="addParticipantAndClear()"
-              [style]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
-              icon="pi pi-check"
-              [raised]="true"
-              [disabled]="participantInputValue === ''"
-            />
+              [buttonStyle]="{
+                'margin-left': '0.5rem',
+                'border-radius': '0.5rem'
+              }"
+              [buttonIcon]="'pi pi-check'"
+              [isDisabled]="participantInputValue === ''"
+            ></app-button>
           </p-floatLabel>
-          <p-button
-            label="Imprimir"
-            [raised]="true"
-            [style]="{
+          <app-button
+            [buttonLabel]="'Imprimir'"
+            [buttonStyle]="{
               'border-radius': '0.5rem',
               'margin-top': '2rem',
               width: '10rem'
             }"
             (click)="print()"
-            icon="pi pi-print"
-          />
+            [buttonIcon]="'pi pi-print'"
+          >
+          </app-button>
         </div>
       </div>
     </div>

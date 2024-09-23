@@ -3,11 +3,14 @@ import { ListboxModule } from 'primeng/listbox';
 import { DataService } from '../../services/data/data.service';
 import { Participant } from '../../models/Participants.model';
 import { Activity } from '../../models/Activity.model';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../button/button.component';
+import { FormsModule } from '@angular/forms';  // Asegúrate de importar FormsModule
 
 @Component({
   selector: 'app-list-component',
   standalone: true,
-  imports: [ListboxModule],
+  imports: [ListboxModule, CommonModule, FormsModule, ButtonComponent],
   templateUrl: './list-component.component.html',
   styleUrl: './list-component.component.scss'
 })

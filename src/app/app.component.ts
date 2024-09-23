@@ -22,7 +22,7 @@ import { MessageService } from 'primeng/api';
 import { HistoricDataComponent } from '../components/historic-data/historic-data.component';
 import { DialogModule } from 'primeng/dialog';
 import { ListComponentComponent } from '../components/lists/list-component.component';
-
+import { ButtonComponent } from '../components/button/button.component';
 interface Actividad {
   name: string;
 }
@@ -32,6 +32,7 @@ interface Actividad {
   imports: [
     HistoricDataComponent,
     ListComponentComponent,
+    ButtonComponent,
     DialogModule,
     RouterOutlet,
     ListboxModule,

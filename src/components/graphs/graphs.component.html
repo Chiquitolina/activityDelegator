@@ -1,7 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center">
     <div class="row w-100">
-      <div class="w-100 col-12" *ngFor="let activity of activityCountsArray">
-        <h2>{{activity.name}}</h2>
+      <div class="col-6 mt-3" *ngFor="let activity of activityCountsArray">
+        <h5>{{activity.name}}</h5>
         <p-chart type="doughnut" [data]="activityData[activity.name]" [options]="options"></p-chart>
       </div>
     </div>

@@ -65,7 +65,7 @@ export class DataService {
       id: 0,
       name: 'Chiqui 👑',
       realname: 'Alejandro Godino',
-      color: 'red'
+      color: 'Tomato'
     },
     {
       id: 1,
@@ -73,16 +73,17 @@ export class DataService {
       realname: 'Anabella Di Cosmo',
       color: 'blue'
     },
-    /*  {
+    {
       id: 2,
       name: 'Brian',
-      realname: 'Brian Jones'
-    }*/
+      realname: 'Brian Jones',
+      color: 'Chocolate'
+    },
     {
       id: 3,
       name: 'Anto ♑',
       realname: 'Antonela Deleba',
-      color: 'yellow'
+      color: 'DarkOliveGreen'
     },
     {
       id: 4,
@@ -106,7 +107,7 @@ export class DataService {
       id: 7,
       name: 'Tate',
       realname: 'Juan Carlos Lescano',
-      color: 'orange'
+      color: 'LightSlateGray'
     },
     {
       id: 8,
@@ -124,7 +125,7 @@ export class DataService {
       id: 10,
       name: 'Marcelo',
       realname: 'Marcelo García',
-      color: 'aqua'
+      color: 'LightSlateGray'
     },
     {
       id: 11,
@@ -142,7 +143,7 @@ export class DataService {
       id: 13,
       name: 'Juan Pablo',
       realname: 'Juan Pablo Benito',
-      color: 'gold'
+      color: 'Peru'
     },
     {
       id: 14,
@@ -185,6 +186,24 @@ export class DataService {
       name: 'Tony',
       realname: 'Antonio Fernandez',
       color: 'tan'
+    },
+    {
+      id: 21,
+      name: 'Pablo',
+      realname: 'Pablo Pedemonte',
+      color: 'YellowGreen'
+    },
+    {
+      id: 22,
+      name: 'Mauri',
+      realname: 'Mauricio',
+      color: 'Wheat'
+    },
+    {
+      id: 23,
+      name: 'Cami',
+      realname: 'Camila',
+      color: 'LightGreen'
     },
   ];
 

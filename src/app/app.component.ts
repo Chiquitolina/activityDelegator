@@ -1,9 +1,15 @@
-import { Component, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  CUSTOM_ELEMENTS_SCHEMA,
+  Input,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DataService } from '../services/data/data.service';
@@ -15,20 +21,32 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HistoricDataComponent } from '../components/historic-data/historic-data.component';
 import { DialogModule } from 'primeng/dialog';
-
+import { ListComponentComponent } from '../components/lists/list-component.component';
 
 interface Actividad {
-  name: string,
+  name: string;
 }
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HistoricDataComponent, DialogModule, RouterOutlet, ListboxModule, FormsModule, ButtonModule, MatFormFieldModule, InputTextModule, FloatLabelModule, ToastModule, MultiSelectModule, CommonModule
+  imports: [
+    HistoricDataComponent,
+    ListComponentComponent,
+    DialogModule,
+    RouterOutlet,
+    ListboxModule,
+    FormsModule,
+    ButtonModule,
+    MatFormFieldModule,
+    InputTextModule,
+    FloatLabelModule,
+    ToastModule,
+    MultiSelectModule,
+    CommonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [MessageService],
-
 })
 export class AppComponent {
   title = 'angular-electron-app';
@@ -45,19 +63,24 @@ export class AppComponent {
 
   personas!: any[];
 
-  constructor(public dataServ: DataService,
+  constructor(
+    public dataServ: DataService,
     private messageService: MessageService
   ) {}
 
-  
   showDialog() {
     this.dialog = true;
-}
+  }
 
   addParticipantAndClear() {
     if (this.participantInputValue.trim()) {
       this.dataServ.addParticipant(this.participantInputValue);
-      this.showToast(this.participantInputValue, 'success', 'Operación exitosa', `Participante ${this.participantInputValue} añadido con éxito.`)
+      this.showToast(
+        this.participantInputValue,
+        'success',
+        'Operación exitosa',
+        `Participante ${this.participantInputValue} añadido con éxito.`
+      );
       this.participantInputValue = ''; // Limpiar el campo después de agregar
     }
   }
@@ -66,11 +89,11 @@ export class AppComponent {
     this.messageService.add({
       severity: severity,
       summary: summary,
-      detail: detail
+      detail: detail,
     });
   }
 
-/*  addActivityAndClear() {
+  /*  addActivityAndClear() {
     if (this.activityInputValue.trim()) {
       this.dataServ.addActivity(this.activityInputValue);
       this.showToast(this.activityInputValue, 'success', 'Operación exitosa', `Actividad ${this.activityInputValue} añadida con éxito.`)
@@ -80,19 +103,28 @@ export class AppComponent {
 
   removeActivityAndShowToast(item: any, selectedActivity: any) {
     this.dataServ.removeActivity(item, selectedActivity);
-    this.showToast(item.name, 'success', 'Operación exitosa', `Actividad ${item.name} removida con éxito.`);
+    this.showToast(
+      item.name,
+      'success',
+      'Operación exitosa',
+      `Actividad ${item.name} removida con éxito.`
+    );
   }
 
-  
   removeParticipantAndShowToast(item: any, selectedParticipant: any) {
     this.dataServ.removeParticipant(item, selectedParticipant);
-    this.showToast(item.name, 'success', 'Operación exitosa', `Participante ${item.name} removido con éxito.`); // Asumiendo que `selectedActivity` tiene una propiedad `name`
+    this.showToast(
+      item.name,
+      'success',
+      'Operación exitosa',
+      `Participante ${item.name} removido con éxito.`
+    ); // Asumiendo que `selectedActivity` tiene una propiedad `name`
   }
-  
+
   print() {
     const printContent = this.printSection.nativeElement.innerHTML;
     const printWindow = window.open('', '', 'height=600,width=800');
-  
+
     if (printWindow) {
       printWindow.document.write(`
         <html>
@@ -111,12 +143,11 @@ export class AppComponent {
           </body>
         </html>
       `);
-  
+
       printWindow.document.close(); // Cerrar el documento para completar su escritura
       printWindow.focus(); // Enfocar la nueva ventana para la impresión
       printWindow.print(); // Ejecutar la impresión
       printWindow.close(); // Cerrar la ventana después de la impresión
     }
   }
-
 }

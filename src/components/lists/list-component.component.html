@@ -1,0 +1,36 @@
+<p-listbox
+class="w-100"
+[options]="arrayIterate"
+[(ngModel)]="selectedItem"
+[listStyle]="{
+'min-height': '500px',
+}"
+>
+<ng-template let-item pTemplate="item">
+  <div
+    class="item-container d-flex justify-content-between align-items-center w-100"
+  >
+    <div class="d-flex align-items-center justify-content-center">
+      <span class="elegido-name">{{ item.name }}:</span>
+      <b>
+        <span
+          class="elegido-name"
+          *ngFor="let elegido of arrayIterate.elegidos"
+          >-{{ elegido.name }}</span
+        ></b
+      >
+    </div>
+    <div>
+      <app-button
+      [buttonStyle]="{
+        'margin-left': '0.5rem',
+        'border-radius': '0.5rem'
+      }"
+      [buttonIcon]="'pi pi-trash'"
+      [buttonSeverity]="'danger'"
+      (click)="onClick(item, selectedItem)"
+      ></app-button>
+    </div>
+  </div>
+</ng-template>
+</p-listbox>

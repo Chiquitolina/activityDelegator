@@ -47,13 +47,15 @@
           (onClick)="showDialog()"
           label="Ver historia"
           [raised]="true"
-          [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem', 'margin-right': '0.5rem', 'width' : '8rem' }"
+          [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem', 'margin-right': '0.5rem', 'width' : '10rem' }"
+          icon="pi pi-database"
         />
           <p-button
             (click)="dataServ.sort(dataServ.participants)"
             label="Sortear"
             [raised]="true"
-            [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem', 'width' : '8rem' }"
+            [style]="{ 'margin-top': '2rem', 'border-radius': '0.5rem', 'width' : '10rem' }"
+            icon="pi pi-sort-alt"
           />
         </div>
         </div>
@@ -99,8 +101,9 @@
           <p-button
           label="Imprimir"
           [raised]="true"
-          [style]="{'border-radius': '0.5rem', 'margin-top': '2rem' }"
+          [style]="{'border-radius': '0.5rem', 'margin-top': '2rem', 'width': '10rem' }"
           (click)="print()"
+          icon="pi pi-print"
         />
         </div>
       </div>

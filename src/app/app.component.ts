@@ -100,6 +100,9 @@ export class AppComponent {
             <title>Imprimir</title>
             <style>
               body { font-family: Arial, sans-serif; margin: 20px; }
+              @page {
+            size: A4 portrait; /* Cambia a 'landscape' para horizontal */
+          }
               /* Aquí puedes agregar estilos personalizados para la impresión */
             </style>
           </head>

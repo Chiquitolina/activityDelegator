@@ -65,11 +65,13 @@ export class DataService {
       id: 0,
       name: 'Chiqui 👑',
       realname: 'Alejandro Godino',
+      color: 'red'
     },
     {
       id: 1,
       name: 'Anabella',
       realname: 'Anabella Di Cosmo',
+      color: 'blue'
     },
     /*  {
       id: 2,
@@ -80,91 +82,109 @@ export class DataService {
       id: 3,
       name: 'Anto ♑',
       realname: 'Antonela Deleba',
+      color: 'yellow'
     },
     {
       id: 4,
       name: 'Brenda',
       realname: 'Brenda Sernoqui',
+      color: 'grey'
     },
     {
       id: 5,
       name: 'Max',
       realname: 'Max Baltzer',
+      color: 'green'
     },
     {
       id: 6,
       name: 'Martín',
       realname: 'Martín Fernandez',
+      color: 'black'
     },
     {
       id: 7,
       name: 'Tate',
       realname: 'Juan Carlos Lescano',
+      color: 'orange'
     },
     {
       id: 8,
       name: 'Pato',
       realname: 'Patricio Miranda',
+      color: 'pink'
     },
     {
       id: 9,
       name: 'Ramiro',
-      realname: 'Ramiro Gonzales',
+      realname: 'Ramiro Gonzalez',
+      color: 'violet'
     },
     {
       id: 10,
       name: 'Marcelo',
       realname: 'Marcelo García',
+      color: 'aqua'
     },
     {
       id: 11,
       name: 'Julieta',
       realname: 'Julieta Draghi',
+      color: 'coral'
     },
     {
       id: 12,
       name: 'Victor',
       realname: 'Victor Ortiz',
+      color: 'CadetBlue'
     },
     {
       id: 13,
       name: 'Juan Pablo',
       realname: 'Juan Pablo Benito',
+      color: 'gold'
     },
     {
       id: 14,
       name: 'Esteban',
       realname: 'Esteban Perafán',
+      color: 'indigo'
     },
     {
       id: 15,
       name: 'Gustavo',
       realname: 'Gustavo Governatore',
+      color: 'lime'
     },
     {
       id: 16,
       name: 'Nacho',
       realname: 'Ignacio Broda',
+      color: 'magenta'
     },
     {
       id: 17,
       name: 'Lucas',
       realname: 'Lucas Quevedo',
+      color: 'olive'
     },
     {
       id: 18,
       name: 'Franco',
       realname: 'Franco Circo',
+      color: 'plum'
     },
     {
       id: 19,
       name: 'Federico',
       realname: 'Federico Locret',
+      color: 'salmon'
     },
     {
       id: 20,
       name: 'Tony',
-      realname: 'Antonio Rodriguez',
+      realname: 'Antonio Fernandez',
+      color: 'tan'
     },
   ];
 
@@ -201,6 +221,7 @@ export class DataService {
       id: this.participants[this.participants.length - 1].id + 1,
       name: value,
       realname: value,
+      color: ''
     };
     this.participants.push(newParticipant);
   }
@@ -274,7 +295,6 @@ export class DataService {
             // Verificar si hay suficientes participantes para asignar
             if (this.sorted.length < numElegidos) {
               console.warn(`No hay suficientes participantes para ${activity.name}.`);
-              return; // Detener si no hay suficientes participantes
             }
   
             const selected = this.sorted.slice(0, numElegidos); // Tomar los primeros seleccionados

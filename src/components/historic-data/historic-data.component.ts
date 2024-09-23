@@ -6,11 +6,12 @@ import { ButtonModule } from 'primeng/button';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AddManualDataComponent } from '../add-manual-data/add-manual-data.component';
+import { GraphsComponent } from '../graphs/graphs.component';
 
 @Component({
   selector: 'app-historic-data',
   standalone: true,
-  imports: [DialogModule, ButtonModule, TableModule, CommonModule, AddManualDataComponent],
+  imports: [DialogModule, ButtonModule, TableModule, CommonModule, GraphsComponent, AddManualDataComponent],
   templateUrl: './historic-data.component.html',
   styleUrl: './historic-data.component.scss',
   providers: []
@@ -18,6 +19,7 @@ import { AddManualDataComponent } from '../add-manual-data/add-manual-data.compo
 export class HistoricDataComponent {
 
   dialog: boolean = false;
+  dialogGraph: boolean = false;
 
   tasks!: any[]
   private tasksUpdateSub!: Subscription;
@@ -65,5 +67,9 @@ export class HistoricDataComponent {
     showDialog() {
       this.dialog = true;
   }
+
+  showDialogGraph() {
+    this.dialogGraph = true;
+}
 
 }

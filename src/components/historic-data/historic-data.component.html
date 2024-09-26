@@ -158,7 +158,7 @@
   [(visible)]="dialog"
   [style]="{ width: '90vw', 'max-width': '800px' }"
 >
-  <app-add-manual-data></app-add-manual-data>
+  <app-add-manual-data (confirm)="onConfirm()"></app-add-manual-data>
 </p-dialog>
 <p-dialog
   class="responsive-dialog"

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter
+ } from '@angular/core';
 import {
   AbstractControl,
   FormsModule,
@@ -22,6 +23,7 @@ import { Activity } from '../../models/Activity.model';
 import { CommonModule } from '@angular/common';
 import { IndexedDBService } from '../../services/db/indexed-db.service';
 import { ButtonComponent } from '../button/button.component';
+import { AppComponent } from '../../app/app.component';
 @Component({
   selector: 'app-add-manual-data',
   standalone: true,
@@ -35,17 +37,23 @@ import { ButtonComponent } from '../button/button.component';
     FormsModule,
     ButtonModule,
     MultiSelectModule,
-    ButtonComponent
+    ButtonComponent,
+    AppComponent
+
   ],
   templateUrl: './add-manual-data.component.html',
   styleUrl: './add-manual-data.component.scss',
 })
 export class AddManualDataComponent {
+
+  @Output() confirm = new EventEmitter<void>(); // Evento de confirmación
+
   addManualTaskForm!: FormGroup;
 
   constructor(public dataServ: DataService, 
               private fb: FormBuilder,
-              private dbServ: IndexedDBService) {
+              private dbServ: IndexedDBService,
+              private appComponent: AppComponent) {
     this.addManualTaskForm = this.fb.group({
       tasks: this.fb.array([]), // Inicializamos el FormArray vacío
     });
@@ -118,7 +126,15 @@ export class AddManualDataComponent {
     this.dbServ.addTask(this.dataServ.activities).subscribe({
       next: () => {
         console.log('Datos agregados manualmente correctamente.');
-      },
+        this.appComponent.showToast(
+          '',
+          'success',
+          'Operación exitosa',
+          'Dato agregado de forma manual correctamente.'
+        )
+        this.onConfirm()
+      }
+        ,
       error: (err) => {
         console.error('Error al agregar datos manualmente:', err);
       },
@@ -127,4 +143,9 @@ export class AddManualDataComponent {
     // Lógica para el caso de formulario válido
     console.log('Formulario válido, datos:', this.addManualTaskForm.value);
   }
+
+  onConfirm() {
+    this.confirm.emit(); // Emitir evento de confirmación
+  }
+
 }

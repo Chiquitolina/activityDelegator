@@ -3,11 +3,12 @@ import { ChartModule } from 'primeng/chart';
 import { DataService } from '../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { IndexedDBService } from '../../services/db/indexed-db.service';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-graphs',
   standalone: true,
-  imports: [ChartModule, CommonModule],
+  imports: [ChartModule, CommonModule, CardModule],
   templateUrl: './graphs.component.html',
   styleUrl: './graphs.component.scss',
 })

@@ -13,19 +13,17 @@ import { CardModule } from 'primeng/card';
   styleUrl: './graphs.component.scss',
 })
 export class GraphsComponent {
+
   data: any;
-  activityCountsArray: any[] = []; // Almacena las actividades
-  activityData: { [key: string]: any } = {}; // Almacena datos por actividad
-  options: any = {}; // Configuraciones para el gráfico
-  colors: string[] = [
-    '#3b82f6',
-    '#eab308',
-    '#22c55e',
-    '#f43f5e',
-    '#a855f7',
-    '#6366f1',
-    '#f97316',
-  ]; // Colores predefinidos
+
+  //activities array
+  activityCountsArray: any[] = [];
+  
+  //data by activity
+  activityData: { [key: string]: any } = {};
+  
+  //graph configuration
+  options: any = {};
 
   constructor(public dataServ: DataService, private dbServ: IndexedDBService) {}
   ngOnInit() {
@@ -117,11 +115,6 @@ export class GraphsComponent {
       responsive: true,
       maintainAspectRatio: false // Permite ajustar el tamaño según el contenedor
     };
-  }
-
-  getColors(count: number): string[] {
-    // Devuelve un array de colores, reutilizando los colores predefinidos
-    return this.colors.slice(0, count);
   }
 
   darkenColor(color: string): string {

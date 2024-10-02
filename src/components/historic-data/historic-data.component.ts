@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, inject, Input, OnDestroy } from '@angular/core';
 import { IndexedDBService } from '../../services/db/indexed-db.service';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
@@ -9,6 +9,8 @@ import { AddManualDataComponent } from '../add-manual-data/add-manual-data.compo
 import { GraphsComponent } from '../graphs/graphs.component';
 import { ButtonComponent } from '../button/button.component';
 import { AppComponent } from '../../app/app.component';
+import { DataService } from '../../services/data/data.service';
+import { Activity } from '../../models/Activity.model';
 
 @Component({
   selector: 'app-historic-data',
@@ -28,19 +30,28 @@ import { AppComponent } from '../../app/app.component';
   providers: [],
 })
 export class HistoricDataComponent {
+
+  tableTitles!: any[];
+
   dialog: boolean = false;
   dialogGraph: boolean = false;
 
   tasks!: any[];
-  private tasksUpdateSub!: Subscription;
+  private _tasksUpdateSub!: Subscription;
 
-  constructor(
-    private dbServ: IndexedDBService,
-    private appComp: AppComponent
-  ) {}
+  private _dataServ = inject(DataService)
+  private _dbServ = inject(IndexedDBService)
+  private _appComp = inject(AppComponent)
 
   ngOnInit() {
-    this.dbServ.getAllTasks().subscribe({
+
+    this.tableTitles = this._dataServ.activities.map((activity: Activity) => ({
+      id: activity.id,
+      name: activity.name, // Incluye otras propiedades si es necesario
+      // Puedes agregar más propiedades aquí
+    }));
+
+    this._dbServ.getAllTasks().subscribe({
       next: (tasks) => {
         this.tasks = tasks.reverse();
       },
@@ -50,8 +61,8 @@ export class HistoricDataComponent {
     });
 
     // Suscribirse al Subject para actualizar la lista cuando se guardan tareas
-    this.tasksUpdateSub = this.dbServ.getTasksUpdateListener().subscribe(() => {
-      this.dbServ.getAllTasks().subscribe({
+    this._tasksUpdateSub = this._dbServ.getTasksUpdateListener().subscribe(() => {
+      this._dbServ.getAllTasks().subscribe({
         next: (tasks) => {
           this.tasks = tasks.reverse();
         },
@@ -63,11 +74,11 @@ export class HistoricDataComponent {
   }
 
   deleteTask(timestamp: string) {
-    this.dbServ.deleteTask(timestamp).subscribe({
+    this._dbServ.deleteTask(timestamp).subscribe({
       next: () => {
         // Actualiza el array local solo después de que la tarea ha sido eliminada
         this.tasks = this.tasks.filter((task) => task.timestamp !== timestamp);
-        this.appComp.showToast(
+        this._appComp.showToast(
           '',
           'success',
           'Operación Exitosa',

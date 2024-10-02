@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Activity } from '../../models/Activity.model';
 import { Participant } from '../../models/Participants.model';
 import { IndexedDBService } from '../db/indexed-db.service';
@@ -7,7 +7,11 @@ import { IndexedDBService } from '../db/indexed-db.service';
   providedIn: 'root',
 })
 export class DataService {
+
+  //this array will contain the final sorted activities list
   sorted!: any[];
+
+  dbServ = inject(IndexedDBService);
 
   activities: Activity[] = [
     {
@@ -65,149 +69,147 @@ export class DataService {
       id: 0,
       name: 'Chiqui 👑',
       realname: 'Alejandro Godino',
-      color: 'Tomato'
+      color: 'Tomato',
     },
     {
       id: 1,
       name: 'Anabella',
       realname: 'Anabella Di Cosmo',
-      color: 'blue'
+      color: 'blue',
     },
     {
       id: 2,
       name: 'Brian',
       realname: 'Brian Jones',
-      color: 'Chocolate'
+      color: 'Chocolate',
     },
     {
       id: 3,
       name: 'Anto ♑',
       realname: 'Antonela Deleba',
-      color: 'DarkOliveGreen'
+      color: 'DarkOliveGreen',
     },
     {
       id: 4,
       name: 'Brenda',
       realname: 'Brenda Sernoqui',
-      color: 'grey'
+      color: 'grey',
     },
     {
       id: 5,
       name: 'Max',
       realname: 'Max Baltzer',
-      color: 'green'
+      color: 'green',
     },
     {
       id: 6,
       name: 'Martín',
       realname: 'Martín Fernandez',
-      color: 'black'
+      color: 'black',
     },
     {
       id: 7,
       name: 'Tate',
       realname: 'Juan Carlos Lescano',
-      color: 'LightSlateGray'
+      color: 'LightSlateGray',
     },
     {
       id: 8,
       name: 'Pato',
       realname: 'Patricio Miranda',
-      color: 'pink'
+      color: 'pink',
     },
     {
       id: 9,
       name: 'Ramiro',
       realname: 'Ramiro Gonzalez',
-      color: 'violet'
+      color: 'violet',
     },
     {
       id: 10,
       name: 'Marcelo',
       realname: 'Marcelo García',
-      color: 'LightSlateGray'
+      color: 'LightSlateGray',
     },
     {
       id: 11,
       name: 'Julieta',
       realname: 'Julieta Draghi',
-      color: 'coral'
+      color: 'coral',
     },
     {
       id: 12,
       name: 'Victor',
       realname: 'Victor Ortiz',
-      color: 'CadetBlue'
+      color: 'CadetBlue',
     },
     {
       id: 13,
       name: 'Juan Pablo',
       realname: 'Juan Pablo Benito',
-      color: 'Peru'
+      color: 'Peru',
     },
     {
       id: 14,
       name: 'Esteban',
       realname: 'Esteban Perafán',
-      color: 'indigo'
+      color: 'indigo',
     },
     {
       id: 15,
       name: 'Gustavo',
       realname: 'Gustavo Governatore',
-      color: 'lime'
+      color: 'lime',
     },
     {
       id: 16,
       name: 'Nacho',
       realname: 'Ignacio Broda',
-      color: 'magenta'
+      color: 'magenta',
     },
     {
       id: 17,
       name: 'Lucas',
       realname: 'Lucas Quevedo',
-      color: 'olive'
+      color: 'olive',
     },
     {
       id: 18,
       name: 'Franco',
       realname: 'Franco Circo',
-      color: 'plum'
+      color: 'plum',
     },
     {
       id: 19,
       name: 'Federico',
       realname: 'Federico Locret',
-      color: 'salmon'
+      color: 'salmon',
     },
     {
       id: 20,
       name: 'Tony',
       realname: 'Antonio Fernandez',
-      color: 'tan'
+      color: 'tan',
     },
     {
       id: 21,
       name: 'Pablo',
       realname: 'Pablo Pedemonte',
-      color: 'YellowGreen'
+      color: 'YellowGreen',
     },
     {
       id: 22,
       name: 'Mauri',
       realname: 'Mauricio',
-      color: 'Wheat'
+      color: 'Wheat',
     },
     {
       id: 23,
       name: 'Cami',
       realname: 'Camila',
-      color: 'LightGreen'
+      color: 'LightGreen',
     },
   ];
-
-  constructor(private dbServ: IndexedDBService) {}
 
   removeActivity(activity: Activity, selectedActivity: Activity): void {
     this.activities = this.activities.filter((c) => c !== activity);
@@ -226,55 +228,44 @@ export class DataService {
     }
   }
 
- /* addActivity(value: string): void {
-    let newActivity = {
-      id: this.activities[this.activities.length - 1].id + 1,
-      name: value,
-      elegidos: [],
-    };
-    this.activities.push(newActivity);
-  }*/
-
   addParticipant(value: string): void {
     let newParticipant = {
       id: this.participants[this.participants.length - 1].id + 1,
       name: value,
       realname: value,
-      color: ''
+      color: '',
     };
     this.participants.push(newParticipant);
   }
 
-  // Función para verificar si los seleccionados están en los últimos 3 sorteos
+  // function to check if the participants selected by the algorithm were included in the last three assignments for the same activity.
   private isSelectionInLastThree(
     selected: any[],
     actividadName: string,
     lastThreeSorts: any[]
   ): boolean {
-    for (const task of lastThreeSorts) {
-      for (const key of Object.keys(task)) {
-        const actividad = task[key];
-        const elegidos = actividad.elegidos;
-
-        if (actividad.name === actividadName && Array.isArray(elegidos)) {
+    return lastThreeSorts.some((task) =>
+      Object.values(task).some((actividad: any) => {
+        const elegidos = actividad.elegidos || [];
+        if (actividad.name === actividadName) {
           console.log(`Actividad: ${actividad.name}`);
-          for (const elegido of selected) {
+          return selected.some((elegido) => {
             console.log(`Verificando al elegido: ${elegido.name}`);
             const isRepeated = elegidos.some(
               (taskElegido: any) => taskElegido.name === elegido.name
             );
             if (isRepeated) {
               console.log('ELEGIDO REPETIDO');
-              return true; // Retornamos true si hay un elegido repetido
             }
-          }
+            return isRepeated;
+          });
         }
-      }
-    }
-    return false; // Retornamos false si no hay repetidos
+        return false;
+      })
+    );
   }
 
-  // Función para hacer el shuffle del array
+  //function to shuffle array elements
   private shuffleArray(arrayToShuffle: any[]): void {
     for (let i = arrayToShuffle.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -285,68 +276,89 @@ export class DataService {
     }
   }
 
+
   sort(array: any[]): void {
     this.dbServ.getLastThreeSorts().subscribe({
       next: (lastThreeSorts) => {
         console.log('Últimos 3 sorteos:', lastThreeSorts);
-  
+
         this.cleanActivities();
-  
-        const performSortFromActivity = (activityIndex: number, sortedIndex: number, retryCount = 0): void => {
+
+        const performSortFromActivity = (
+          activityIndex: number,
+          sortedIndex: number,
+          retryCount = 0
+        ): void => {
           if (!Array.isArray(this.sorted)) {
             console.error('Error: this.sorted no es un array válido.');
             return;
           }
-  
+
           const totalParticipants = this.sorted.length;
           if (totalParticipants === 0) {
             console.warn('No hay más participantes disponibles.');
-            return; // Detener si no hay más participantes
+            return; // stop fn here if there is no more remaining participants
           }
-  
+
           for (let i = activityIndex; i < this.activities.length; i++) {
             const activity = this.activities[i];
             let numElegidos = 2;
-            if (['Jugos y agradece', 'Levanta y barre', 'Lista'].includes(activity.name)) {
+            if (
+              ['Jugos y agradece', 'Levanta y barre', 'Lista'].includes(
+                activity.name
+              )
+            ) {
               numElegidos = 1;
             }
-  
-            // Verificar si hay suficientes participantes para asignar
+
+            //verify if there are any remaining participants.
             if (this.sorted.length < numElegidos) {
-              console.warn(`No hay suficientes participantes para ${activity.name}.`);
+              console.warn(
+                `No hay suficientes participantes para ${activity.name}.`
+              );
             }
-  
-            const selected = this.sorted.slice(0, numElegidos); // Tomar los primeros seleccionados
-  
-            if (this.isSelectionInLastThree(selected, activity.name, lastThreeSorts)) {
+
+            const selected = this.sorted.slice(0, numElegidos); //takes selected
+
+            if (
+              this.isSelectionInLastThree(
+                selected,
+                activity.name,
+                lastThreeSorts
+              )
+            ) {
               if (retryCount > 20) {
-                console.error(`Intentos máximos alcanzados para ${activity.name}, asignando participantes sin verificar repetición.`);
-                activity.elegidos = selected; // Asignar participantes sin verificar
-                this.sorted = this.sorted.slice(numElegidos); // Eliminar los seleccionados
+                console.error(
+                  `Intentos máximos alcanzados para ${activity.name}, asignando participantes sin verificar repetición.`
+                );
+                activity.elegidos = selected;
+                this.sorted = this.sorted.slice(numElegidos); //remove selected participants
                 continue;
               }
-  
-              console.warn(`Selección repetida en ${activity.name}, volviendo a sortear (intento ${retryCount + 1}).`);
-              this.shuffleArray(this.sorted); // Reordena todo el array
-              performSortFromActivity(i, sortedIndex, retryCount + 1); // Llama recursivamente, pero incrementando el contador de intentos
+
+              console.warn(
+                `Selección repetida en ${
+                  activity.name
+                }, volviendo a sortear (intento ${retryCount + 1}).`
+              );
+              this.shuffleArray(this.sorted); //shuffle array
+              performSortFromActivity(i, sortedIndex, retryCount + 1); //call recursively, updating the retry count on each attempt.
+
               return;
             }
-  
-            // Asigna los seleccionados a la actividad
+
             activity.elegidos = selected;
-  
-            // Elimina los seleccionados de 'this.sorted' para que no se repitan
+
             this.sorted = this.sorted.slice(numElegidos);
-  
-            // Actualiza el índice sortedIndex
+
             sortedIndex += numElegidos;
-  
+
             if (this.sorted.length === 0) {
               console.warn('No hay más participantes disponibles.');
               break;
             }
           }
-  
+
           this.dbServ.addTask(this.activities).subscribe({
             next: () => {
               console.log('Nuevo sorteo guardado correctamente');
@@ -356,13 +368,13 @@ export class DataService {
             },
           });
         };
-  
-        // Copia y mezcla del array original
+
+        //copy and shuffle original array
         const arrayCopy = [...array];
         this.shuffleArray(arrayCopy);
         this.sorted = arrayCopy;
-  
-        // Inicia el sorteo desde la primera actividad y el índice 0
+
+        //start sort from 0
         performSortFromActivity(0, 0);
       },
       error: (err) => {
@@ -373,8 +385,7 @@ export class DataService {
 
   cleanActivities() {
     this.activities.forEach((activity: Activity) => {
-      activity.elegidos = []
-    })
+      activity.elegidos = [];
+    });
   }
-
 }

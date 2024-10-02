@@ -1,5 +1,4 @@
-import { Component, Output, EventEmitter
- } from '@angular/core';
+import { Component, Output, EventEmitter, inject } from '@angular/core';
 import {
   AbstractControl,
   FormsModule,
@@ -38,35 +37,36 @@ import { AppComponent } from '../../app/app.component';
     ButtonModule,
     MultiSelectModule,
     ButtonComponent,
-    AppComponent
-
+    AppComponent,
   ],
   templateUrl: './add-manual-data.component.html',
   styleUrl: './add-manual-data.component.scss',
 })
 export class AddManualDataComponent {
-
+  
   @Output() confirm = new EventEmitter<void>(); // Evento de confirmación
+
+  dataServ = inject(DataService);
+  private _fb = inject(FormBuilder);
+  private _dbServ = inject(IndexedDBService);
+  private _appComponent = inject(AppComponent);
 
   addManualTaskForm!: FormGroup;
 
-  constructor(public dataServ: DataService, 
-              private fb: FormBuilder,
-              private dbServ: IndexedDBService,
-              private appComponent: AppComponent) {
-    this.addManualTaskForm = this.fb.group({
-      tasks: this.fb.array([]), // Inicializamos el FormArray vacío
+  constructor() {
+    this.addManualTaskForm = this._fb.group({
+      tasks: this._fb.array([]),
     });
 
     const tasksArray = this.addManualTaskForm.get('tasks') as FormArray;
 
     this.dataServ.activities.forEach((activity: Activity) => {
-      tasksArray.push(this.createTaskGroup(activity.name)); // Añadimos cada FormGroup
+      tasksArray.push(this.createTaskGroup(activity.name));
     });
   }
 
   createTaskGroup(name: string): FormGroup {
-    const group = this.fb.group({
+    const group = this._fb.group({
       name: [name],
       elegidos: [[], [Validators.required]],
     });
@@ -121,20 +121,19 @@ export class AddManualDataComponent {
       return; // Evitar que se envíe si no es válido
     }
 
-    this.updateActivitiesWithSelected()
+    this.updateActivitiesWithSelected();
 
-    this.dbServ.addTask(this.dataServ.activities).subscribe({
+    this._dbServ.addTask(this.dataServ.activities).subscribe({
       next: () => {
         console.log('Datos agregados manualmente correctamente.');
-        this.appComponent.showToast(
+        this._appComponent.showToast(
           '',
           'success',
           'Operación exitosa',
           'Dato agregado de forma manual correctamente.'
-        )
-        this.onConfirm()
-      }
-        ,
+        );
+        this.onConfirm();
+      },
       error: (err) => {
         console.error('Error al agregar datos manualmente:', err);
       },
@@ -147,5 +146,4 @@ export class AddManualDataComponent {
   onConfirm() {
     this.confirm.emit(); // Emitir evento de confirmación
   }
-
 }

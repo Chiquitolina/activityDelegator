@@ -29,124 +29,37 @@
   <ng-template pTemplate="header">
     <tr>
       <th>Timestamp</th>
-      <th>Compras</th>
-      <th>Cocina</th>
-      <th>Lava</th>
-      <th>Levanta y barre</th>
-      <th>Cierra cocina</th>
-      <th>Pone la mesa</th>
-      <th>Jugos y agradece</th>
-      <th>Mozos</th>
+      @for (activity of tableTitles; track activity) {
+      <th>{{ activity.name }}</th>
+      }
     </tr>
   </ng-template>
+
   <ng-template pTemplate="body" let-task>
     <tr>
       <td>{{ task.timestamp }}</td>
-      <div *ngFor="let elegidos of task.elegidos">
-        <td></td>
-      </div>
-      <td *ngIf="task[0]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[0].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[0].elegidos[task[0].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
 
-      <!-- Cocina -->
-      <td *ngIf="task[1]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[1].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[1].elegidos[task[1].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
+      @for (activity of tableTitles; track activity) {
+      <td>
+        <ng-container *ngIf="task[activity.id]?.elegidos?.length > 0">
+          @for (elegido of task[activity.id].elegidos; track elegido) {
+          <span>
+            {{ elegido.name }}
+            @if (elegido !==
+            task[activity.id].elegidos[task[activity.id].elegidos.length - 1]) {
+            <span> - </span> }
+          </span>
+          }
+        </ng-container>
       </td>
-
-      <!-- Lava -->
-      <td *ngIf="task[2]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[2].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[2].elegidos[task[2].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
-
-      <!-- Levanta y barre -->
-      <td *ngIf="task[3]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[3].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[3].elegidos[task[3].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
-
-      <!-- Cierra cocina -->
-      <td *ngIf="task[4]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[4].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[4].elegidos[task[4].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
-
-      <!-- Pone la mesa -->
-      <td *ngIf="task[5]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[5].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[5].elegidos[task[5].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
-
-      <!-- Jugos y agradece -->
-      <td *ngIf="task[6]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[6].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[6].elegidos[task[6].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
-
-      <!-- Mozos -->
-      <td *ngIf="task[7]?.elegidos?.length > 0">
-        <span *ngFor="let elegido of task[7].elegidos"
-          >{{ elegido.name
-          }}<span
-            *ngIf="elegido !== task[7].elegidos[task[7].elegidos.length - 1]"
-          >
-            -
-          </span></span
-        >
-      </td>
-
+      }
       <td class="d-flex">
         <app-button
-        [buttonStyle]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
-        (click)="deleteTask(task.timestamp)"
-        [buttonIcon]="'pi pi-trash'"
-        [buttonSeverity]="'danger'"
-      ></app-button>
+          [buttonStyle]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
+          (click)="deleteTask(task.timestamp)"
+          [buttonIcon]="'pi pi-trash'"
+          [buttonSeverity]="'danger'"
+        ></app-button>
       </td>
     </tr>
   </ng-template>

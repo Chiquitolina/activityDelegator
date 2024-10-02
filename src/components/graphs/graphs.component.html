@@ -1,9 +1,16 @@
 <div class="container d-flex justify-content-center align-items-center">
-    <div class="row w-100">
-      <div class=" col-12 mt-3" *ngFor="let activity of activityCountsArray">
-        <p-card header="{{activity.name}}">
-        <p-chart type="doughnut" [data]="activityData[activity.name]" [options]="options"></p-chart>
+  <div class="row w-100">
+    @for (activity of activityCountsArray; track activity) {
+    <div class="col-12 mt-3">
+      <p-card header="{{ activity.name }}">
+        <p-chart
+          type="doughnut"
+          [data]="activityData[activity.name]"
+          [options]="options"
+        ></p-chart>
       </p-card>
-      </div>
     </div>
+    }
   </div>
+</div>
+  

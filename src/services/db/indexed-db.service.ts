@@ -13,11 +13,11 @@ export class IndexedDBService {
   addTask(task: any): Observable<any> {
     const taskWithTimestamp = {
       ...task,
-      timestamp: new Date().toLocaleString(), // O usa un valor único específico
+      timestamp: new Date().toLocaleString(),
     };
 
     return this.dbService.add('tasks', taskWithTimestamp).pipe(
-      tap(() => this.tasksUpdated.next()) // Emitir evento de actualización
+      tap(() => this.tasksUpdated.next())
     );
   }
 
@@ -28,9 +28,9 @@ export class IndexedDBService {
   getLastThreeSorts(): Observable<any[]> {
     return this.dbService.getAll('tasks').pipe(
       map((tasks) => {
-        // Invierte el array y luego toma los primeros 3 elementos
+        
         const reversedTasks = tasks.reverse();
-        return reversedTasks.slice(0, 3); // Toma los primeros 3 elementos del array invertido
+        return reversedTasks.slice(0, 3);
       })
     );
   }
@@ -40,6 +40,6 @@ export class IndexedDBService {
   }
 
   getTasksUpdateListener() {
-    return this.tasksUpdated.asObservable(); // Exponer el Subject como Observable
+    return this.tasksUpdated.asObservable();
   }
 }

@@ -1,27 +1,76 @@
-# AngularElectronApp
+# Activity Delegator Application
+## Descripción General
+La aplicación Activity Delegator permite a los usuarios asignar de manera aleatoria actividades a un grupo de participantes, optimizando la distribución equitativa de tareas. Este sistema garantiza que no se repitan los mismos participantes para las mismas actividades durante al menos tres días, siempre y cuando la cantidad de actividades y participantes lo permita.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+La vista principal muestra dos listas: una de actividades y otra de participantes. Los usuarios pueden realizar el sorteo para delegar actividades, imprimir los resultados o ver el historial de sorteos anteriores. Los sorteos pueden visualizarse tanto en una tabla como en gráficos de torta, que muestran la cantidad de veces que cada participante ha sido seleccionado para una actividad específica.
 
-## Development server
+## Gestión de Actividades y Participantes
+Además de realizar sorteos, la aplicación incluye un completo sistema de gestión de actividades y participantes. Los usuarios pueden:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Agregar o eliminar actividades y participantes: Ya sea manualmente o mediante un formulario con selección múltiple.
 
-## Code scaffolding
+Asignar actividades manualmente: En caso de que el usuario desee asignar directamente una actividad a un participante específico, se puede eliminar la actividad y los participantes del sorteo antes de realizarlo.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Carga masiva de datos: Es posible cargar de manera eficiente todas las actividades a través de un formulario con selecciones múltiples que involucran a todos los participantes.
 
-## Build
+Borrar datos de tablas: Los usuarios pueden eliminar fácilmente los datos almacenados, como actividades y participantes, directamente desde la tabla de gestión.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Funcionalidades adicionales
+Historial de Sorteos: Se puede acceder a un historial detallado de los sorteos previos, facilitando el seguimiento de las asignaciones.
 
-## Running unit tests
+Visualización Gráfica: Los gráficos de torta permiten ver de manera clara la cantidad de veces que cada participante ha sido seleccionado en cada actividad.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# 1. Vista Principal: Sorteo de Actividades
+## Descripción
+La vista principal permite a los usuarios ver dos listas: una de actividades y otra de participantes. Desde esta pantalla, el usuario puede realizar sorteos de manera aleatoria o asignar tareas manualmente.
 
-## Running end-to-end tests
+## Elementos principales
+Lista de Actividades: Muestra todas las actividades disponibles que pueden ser asignadas.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Lista de Participantes: Muestra todos los participantes disponibles para el sorteo.
+## Botones
+Sortear: Inicia el proceso de sorteo aleatorio, asignando una actividad a cada participante de forma equitativa.
 
-## Further help
+Imprimir: Permite imprimir los resultados del sorteo para su almacenamiento físico o distribución.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ver Historia: Abre una vista detallada con el historial de los sorteos anteriores, incluyendo gráficos de torta y tablas con las asignaciones previas.
+# 2. Vista de Gestión de Actividades y Participantes
+## Descripción
+En esta vista, los usuarios pueden administrar tanto las actividades como los participantes. Pueden agregar nuevas actividades o participantes, o eliminarlos según sea necesario.
+
+## Elementos principales
+Formulario de Gestión: Incluye campos para ingresar nuevas actividades y participantes.
+
+Lista de Actividades/Participantes: Muestra todas las actividades y participantes registrados en el sistema.
+
+## Botones
+Agregar Actividad/Participante: Abre un formulario para agregar nuevas actividades o participantes de manera manual.
+
+Borrar Actividad/Participante: Elimina una actividad o participante seleccionado.
+
+Asignar Actividad Manualmente: Permite asignar actividades a los participantes de manera manual, evitando el sorteo.
+
+# 3. Vista de Carga Manual
+## Descripción
+Esta vista facilita la carga manual de datos. Los usuarios pueden cargar múltiples actividades y asignarles varios participantes a través de un formulario con selección múltiple.
+
+## Elementos principales
+Formulario de Carga Manual: Permite seleccionar múltiples actividades y participantes para ingresarlos al sistema de manera eficiente.
+## Botones
+Cargar Datos: Realiza la carga de las actividades y participantes seleccionados.
+
+Borrar Datos: Elimina todas las actividades y participantes de las tablas de manera masiva.
+
+# 4. Vista de Historial
+## Descripción
+Aquí los usuarios pueden ver el historial completo de los sorteos realizados. Los resultados se muestran en forma de tablas y gráficos.
+
+## Elementos principales
+Tabla de Historial: Muestra una lista cronológica de los sorteos anteriores, indicando qué participantes fueron asignados a cada actividad.
+
+Gráfico de Torta: Proporciona una visualización gráfica que muestra la cantidad de veces que cada participante ha sido asignado a una actividad.
+
+## Botones
+Volver: Regresa a la vista principal de sorteos.
+
+Imprimir Historial: Permite imprimir el historial completo de los sorteos.

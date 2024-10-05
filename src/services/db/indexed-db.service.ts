@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Observable, Subject, tap, map } from 'rxjs';
 
@@ -6,9 +6,10 @@ import { Observable, Subject, tap, map } from 'rxjs';
   providedIn: 'root',
 })
 export class IndexedDBService {
-  private tasksUpdated = new Subject<void>(); // Subject para emitir actualizaciones
 
-  constructor(private dbService: NgxIndexedDBService) {}
+  private $tasksUpdated = new Subject<void>(); // Subject para emitir actualizaciones
+
+  private _dbServ = inject(NgxIndexedDBService)
 
   addTask(task: any): Observable<any> {
     const taskWithTimestamp = {
@@ -16,17 +17,17 @@ export class IndexedDBService {
       timestamp: new Date().toLocaleString(),
     };
 
-    return this.dbService.add('tasks', taskWithTimestamp).pipe(
-      tap(() => this.tasksUpdated.next())
+    return this._dbServ.add('tasks', taskWithTimestamp).pipe(
+      tap(() => this.$tasksUpdated.next())
     );
   }
 
   getAllTasks(): Observable<any[]> {
-    return this.dbService.getAll('tasks');
+    return this._dbServ.getAll('tasks');
   }
   
   getLastThreeSorts(): Observable<any[]> {
-    return this.dbService.getAll('tasks').pipe(
+    return this._dbServ.getAll('tasks').pipe(
       map((tasks) => {
         
         const reversedTasks = tasks.reverse();
@@ -36,10 +37,10 @@ export class IndexedDBService {
   }
 
   deleteTask(timestamp: string): Observable<any> {
-    return this.dbService.delete('tasks', timestamp);
+    return this._dbServ.delete('tasks', timestamp);
   }
 
   getTasksUpdateListener() {
-    return this.tasksUpdated.asObservable();
+    return this.$tasksUpdated.asObservable();
   }
 }

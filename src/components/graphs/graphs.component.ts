@@ -4,6 +4,7 @@ import { DataService } from '../../services/data/data.service';
 import { CommonModule } from '@angular/common';
 import { IndexedDBService } from '../../services/db/indexed-db.service';
 import { CardModule } from 'primeng/card';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-graphs',
@@ -27,6 +28,7 @@ export class GraphsComponent {
 
   dataServ = inject(DataService)
   _dbServ = inject(IndexedDBService)
+  private _tasksUpdateSub!: Subscription;
 
   ngOnInit() {
     this._dbServ.getAllTasks().subscribe({
@@ -60,7 +62,7 @@ export class GraphsComponent {
 
         // Construir datasets para cada actividad
         Object.entries(activityData).forEach(([activityName, elegidos]) => {
-          this.activityCountsArray.push({ name: activityName }); // Agrega la actividad
+          this.activityCountsArray.push({ name: activityName });
 
           // Obtener los colores de los participantes
           const participantColors = Object.keys(elegidos).map((elegidoName) => {
@@ -108,19 +110,18 @@ export class GraphsComponent {
     this.options = {
       plugins: {
         legend: {
-          position: 'right', // Puedes usar 'top', 'bottom', 'left', 'right'
+          position: 'right', 
           labels: {
-            usePointStyle: true, // Hace que las leyendas utilicen un punto en lugar de un rectángulo
+            usePointStyle: true, 
           }
         }
       },
       responsive: true,
-      maintainAspectRatio: false // Permite ajustar el tamaño según el contenedor
+      maintainAspectRatio: false 
     };
   }
 
   darkenColor(color: string): string {
-    // Función para oscurecer el color, puedes personalizarla
     return color; // Aquí podrías agregar lógica para oscurecer el color si es necesario
   }
   

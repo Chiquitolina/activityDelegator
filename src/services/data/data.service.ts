@@ -248,7 +248,7 @@ export class DataService {
       Object.values(task).some((actividad: any) => {
         const elegidos = actividad.elegidos || [];
         if (actividad.name === actividadName) {
-          console.log(`Actividad: ${actividad.name}`);
+         /* console.log(`Actividad: ${actividad.name}`);*/
           return selected.some((elegido) => {
             console.log(`Verificando al elegido: ${elegido.name}`);
             const isRepeated = elegidos.some(
@@ -280,7 +280,7 @@ export class DataService {
   sort(array: any[]): void {
     this.dbServ.getLastThreeSorts().subscribe({
       next: (lastThreeSorts) => {
-        console.log('Últimos 3 sorteos:', lastThreeSorts);
+      /*  console.log('Últimos 3 sorteos:', lastThreeSorts);*/
 
         this.cleanActivities();
 
@@ -290,7 +290,7 @@ export class DataService {
           retryCount = 0
         ): void => {
           if (!Array.isArray(this.sorted)) {
-            console.error('Error: this.sorted no es un array válido.');
+          /*  console.error('Error: this.sorted no es un array válido.');*/
             return;
           }
 

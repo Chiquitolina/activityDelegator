@@ -23,6 +23,7 @@ import { HistoricDataComponent } from '../components/historic-data/historic-data
 import { DialogModule } from 'primeng/dialog';
 import { ListComponentComponent } from '../components/lists/list-component.component';
 import { ButtonComponent } from '../components/button/button.component';
+import { DialogComponent } from '../components/dialog/dialog.component';
 interface Actividad {
   name: string;
 }
@@ -44,6 +45,7 @@ interface Actividad {
     ToastModule,
     MultiSelectModule,
     CommonModule,
+    DialogComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -55,6 +57,7 @@ export class AppComponent {
   @ViewChild('printSection') printSection!: ElementRef;
 
   dialog: boolean = false;
+  dialogType: string = 'historic-data'; // Tipo de diálogo
 
   activityInputValue: string = '';
   participantInputValue: string = '';
@@ -101,6 +104,12 @@ export class AppComponent {
       this.activityInputValue = '';
     }
   }*/
+
+    
+    closeDialog() {
+      this.dialog = false;
+      console.log('Diálogo cerrado. Estado de la variable dialog:', this.dialog);
+    }
 
   removeActivityAndShowToast(item: any, selectedActivity: any) {
     this.dataServ.removeActivity(item, selectedActivity);

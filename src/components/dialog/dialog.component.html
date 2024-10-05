@@ -1,0 +1,10 @@
+<p-dialog
+  class="responsive-dialog"
+  [header]="dialogHeader"
+  [modal]="true"
+  [(visible)]="dialogVisible"
+  [style]="{ width: '90vw', 'max-width': '800px' }"
+  (onHide)="closeDialog()"
+>
+  <ng-template #container></ng-template>
+</p-dialog>

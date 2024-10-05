@@ -20,7 +20,7 @@ export class ButtonComponent {
   @Output() buttonClick = new EventEmitter<void>();
   
   onClick() {
-    this.buttonClick.emit(); // Emitimos el evento personalizado
+    this.buttonClick.emit();
   }
 
 }

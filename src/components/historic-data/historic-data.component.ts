@@ -11,6 +11,7 @@ import { ButtonComponent } from '../button/button.component';
 import { AppComponent } from '../../app/app.component';
 import { DataService } from '../../services/data/data.service';
 import { Activity } from '../../models/Activity.model';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-historic-data',
@@ -24,13 +25,13 @@ import { Activity } from '../../models/Activity.model';
     AddManualDataComponent,
     ButtonComponent,
     AppComponent,
+    DialogComponent,
   ],
   templateUrl: './historic-data.component.html',
   styleUrl: './historic-data.component.scss',
   providers: [],
 })
 export class HistoricDataComponent {
-
   tableTitles!: any[];
 
   dialog: boolean = false;
@@ -39,16 +40,14 @@ export class HistoricDataComponent {
   tasks!: any[];
   private _tasksUpdateSub!: Subscription;
 
-  private _dataServ = inject(DataService)
-  private _dbServ = inject(IndexedDBService)
-  private _appComp = inject(AppComponent)
+  private _dataServ = inject(DataService);
+  private _dbServ = inject(IndexedDBService);
+  private _appComp = inject(AppComponent);
 
   ngOnInit() {
-
     this.tableTitles = this._dataServ.activities.map((activity: Activity) => ({
       id: activity.id,
-      name: activity.name, // Incluye otras propiedades si es necesario
-      // Puedes agregar más propiedades aquí
+      name: activity.name,
     }));
 
     this._dbServ.getAllTasks().subscribe({
@@ -60,23 +59,23 @@ export class HistoricDataComponent {
       },
     });
 
-    // Suscribirse al Subject para actualizar la lista cuando se guardan tareas
-    this._tasksUpdateSub = this._dbServ.getTasksUpdateListener().subscribe(() => {
-      this._dbServ.getAllTasks().subscribe({
-        next: (tasks) => {
-          this.tasks = tasks.reverse();
-        },
-        error: (err) => {
-          console.error('Error fetching tasks:', err);
-        },
+    this._tasksUpdateSub = this._dbServ
+      .getTasksUpdateListener()
+      .subscribe(() => {
+        this._dbServ.getAllTasks().subscribe({
+          next: (tasks) => {
+            this.tasks = tasks.reverse();
+          },
+          error: (err) => {
+            console.error('Error fetching tasks:', err);
+          },
+        });
       });
-    });
   }
 
   deleteTask(timestamp: string) {
     this._dbServ.deleteTask(timestamp).subscribe({
       next: () => {
-        // Actualiza el array local solo después de que la tarea ha sido eliminada
         this.tasks = this.tasks.filter((task) => task.timestamp !== timestamp);
         this._appComp.showToast(
           '',
@@ -97,8 +96,12 @@ export class HistoricDataComponent {
     this.dialogGraph = true;
   }
 
-  onConfirm() {
-    console.log('Acción confirmada');
-    this.dialog = false; // Cierra el diálogo después de la confirmación
+  onDialogHide() {
+    this.dialog = false;
   }
+
+  onDialogGraphHide() {
+    this.dialogGraph = false;
+  }
+  
 }

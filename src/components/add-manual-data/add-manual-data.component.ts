@@ -43,7 +43,7 @@ import { AppComponent } from '../../app/app.component';
   styleUrl: './add-manual-data.component.scss',
 })
 export class AddManualDataComponent {
-  
+
   @Output() confirm = new EventEmitter<void>(); // Evento de confirmación
 
   dataServ = inject(DataService);
@@ -139,11 +139,10 @@ export class AddManualDataComponent {
       },
     });
 
-    // Lógica para el caso de formulario válido
     console.log('Formulario válido, datos:', this.addManualTaskForm.value);
   }
 
   onConfirm() {
-    this.confirm.emit(); // Emitir evento de confirmación
+    this.confirm.emit();
   }
 }

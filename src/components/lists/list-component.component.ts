@@ -23,7 +23,6 @@ export class ListComponentComponent {
   dataServ = inject(DataService)
 
   onClick(item: any, selectedItem: any) {
-    // Emitimos el objeto al padre
     this.buttonClick.emit({ item, selectedItem });
   }
 

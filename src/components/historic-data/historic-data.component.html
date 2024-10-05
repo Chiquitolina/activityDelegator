@@ -64,21 +64,16 @@
     </tr>
   </ng-template>
 </p-table>
-<p-dialog
-  class="responsive-dialog"
-  header="Añadir dato manualmente"
-  [modal]="true"
-  [(visible)]="dialog"
-  [style]="{ width: '90vw', 'max-width': '800px' }"
->
-  <app-add-manual-data (confirm)="onConfirm()"></app-add-manual-data>
-</p-dialog>
-<p-dialog
-  class="responsive-dialog"
-  header="Visualizar data"
-  [modal]="true"
-  [(visible)]="dialogGraph"
-  [style]="{ width: '90vw', 'max-width': '800px' }"
->
-  <app-graphs></app-graphs>
-</p-dialog>
+<app-dialog
+  [dialogHeader]="'Añadir dato manualmente'"
+  [dialogVisible]="dialog"
+  [dialogType]="'add-data'"
+  (onClose)="onDialogHide()"
+></app-dialog>
+
+<app-dialog
+  [dialogHeader]="'Visualizar gráficos'"
+  [dialogVisible]="dialogGraph"
+  [dialogType]="'view-graphs'"
+  (onClose)="onDialogGraphHide()"
+></app-dialog>

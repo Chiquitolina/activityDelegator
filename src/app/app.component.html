@@ -1,111 +1,108 @@
-<div class="bg-dark w-100" style="height: 100vh">
-  <p-toast></p-toast>
-  <div class="container-fluid bg-dark h-100">
-    <div
-      class="row d-flex justify-content-around align-items-center"
-      style="height: 100vh"
-    >
+  <div class="bg-dark w-100" style="height: 100vh">
+    <p-toast></p-toast>
+    <div class="container-fluid bg-dark h-100">
       <div
-        class="h-100 col-xl-6 col-md-12 col-sm-12 d-flex flex-column align-items-center justify-content-center"
+        class="row d-flex justify-content-around align-items-center"
+        style="height: 100vh"
       >
-        <app-list-component
-          class="w-100"
-          [arrayIterate]="dataServ.activities"
-          (buttonClick)="
-            removeActivityAndShowToast($event.item, $event.selectedItem)
-          "
-        ></app-list-component>
         <div
-          class="d-flex flex-wrap align-items-center justify-content-between w-100"
+          class="h-100 col-xl-6 col-md-12 col-sm-12 d-flex flex-column align-items-center justify-content-center"
         >
-          <div>
-            <app-button
-              [buttonStyle]="{
-                'margin-top': '2rem',
-                'border-radius': '0.5rem',
-                'margin-right': '0.5rem',
-                width: '10rem'
-              }"
-              [buttonLabel]="'Ver historia'"
-              [buttonIcon]="'pi pi-database'"
-              (click)="showDialog()"
-            ></app-button>
-            <app-button
-              [buttonStyle]="{
-                'margin-top': '2rem',
-                'border-radius': '0.5rem',
-                'margin-right': '0.5rem',
-                width: '10rem'
-              }"
-              [buttonLabel]="'Sortear'"
-              [buttonIcon]="'pi pi-sort-alt'"
-              (click)="dataServ.sort(dataServ.participants)"
-            ></app-button>
+          <app-list-component
+            class="w-100"
+            [arrayIterate]="dataServ.activities"
+            (buttonClick)="
+              removeActivityAndShowToast($event.item, $event.selectedItem)
+            "
+          ></app-list-component>
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-between w-100"
+          >
+            <div>
+              <app-button
+                [buttonStyle]="{
+                  'margin-top': '2rem',
+                  'border-radius': '0.5rem',
+                  'margin-right': '0.5rem',
+                  width: '10rem'
+                }"
+                [buttonLabel]="'Ver historia'"
+                [buttonIcon]="'pi pi-database'"
+                (click)="showDialog()"
+              ></app-button>
+              <app-button
+                [buttonStyle]="{
+                  'margin-top': '2rem',
+                  'border-radius': '0.5rem',
+                  'margin-right': '0.5rem',
+                  width: '10rem'
+                }"
+                [buttonLabel]="'Sortear'"
+                [buttonIcon]="'pi pi-sort-alt'"
+                (click)="dataServ.sort(dataServ.participants)"
+              ></app-button>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        class="col-xl-6 col-md-12 col-sm-12 d-flex flex-column justify-content-center align-items-center bg-dark"
-      >
-        <app-list-component
-          class="w-100"
-          [arrayIterate]="dataServ.participants"
-          (buttonClick)="
-            removeParticipantAndShowToast($event.item, $event.selectedItem)
-          "
-        ></app-list-component>
         <div
-          class="d-flex flex-wrap align-items-center w-100 justify-content-between"
+          class="col-xl-6 col-md-12 col-sm-12 d-flex flex-column justify-content-center align-items-center bg-dark"
         >
-          <p-floatLabel style="margin-top: 2rem">
-            <input pInputText [(ngModel)]="participantInputValue" />
-            <label for="username">Añadir participante</label>
-            <app-button
-              (click)="addParticipantAndClear()"
-              [buttonStyle]="{
-                'margin-left': '0.5rem',
-                'border-radius': '0.5rem'
-              }"
-              [buttonIcon]="'pi pi-check'"
-              [isDisabled]="participantInputValue === ''"
-            ></app-button>
-          </p-floatLabel>
-          <app-button
-            [buttonLabel]="'Imprimir'"
-            [buttonStyle]="{
-              'border-radius': '0.5rem',
-              'margin-top': '2rem',
-              width: '10rem'
-            }"
-            (click)="print()"
-            [buttonIcon]="'pi pi-print'"
+          <app-list-component
+            class="w-100"
+            [arrayIterate]="dataServ.participants"
+            (buttonClick)="
+              removeParticipantAndShowToast($event.item, $event.selectedItem)
+            "
+          ></app-list-component>
+          <div
+            class="d-flex flex-wrap align-items-center w-100 justify-content-between"
           >
-          </app-button>
+            <p-floatLabel style="margin-top: 2rem">
+              <input pInputText [(ngModel)]="participantInputValue" />
+              <label for="username">Añadir participante</label>
+              <app-button
+                (click)="addParticipantAndClear()"
+                [buttonStyle]="{
+                  'margin-left': '0.5rem',
+                  'border-radius': '0.5rem'
+                }"
+                [buttonIcon]="'pi pi-check'"
+                [isDisabled]="participantInputValue === ''"
+              ></app-button>
+            </p-floatLabel>
+            <app-button
+              [buttonLabel]="'Imprimir'"
+              [buttonStyle]="{
+                'border-radius': '0.5rem',
+                'margin-top': '2rem',
+                width: '10rem'
+              }"
+              (click)="print()"
+              [buttonIcon]="'pi pi-print'"
+            >
+            </app-button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="" #printSection id="printSection">
-  <div *ngFor="let item of dataServ.participants; let i = index">
-    <p>
-      <b>{{ i + 1 }}-</b>{{ item.realname }}
-    </p>
+  <div class="" #printSection id="printSection">
+    <div *ngFor="let item of dataServ.participants; let i = index">
+      <p>
+        <b>{{ i + 1 }}-</b>{{ item.realname }}
+      </p>
+    </div>
+    <div class="border" *ngFor="let item of dataServ.activities">
+      <b
+        ><span>{{ item.name }}: </span></b
+      >
+      <span *ngFor="let elegido of item.elegidos">-{{ elegido.name }}</span>
+    </div>
   </div>
-  <div class="border" *ngFor="let item of dataServ.activities">
-    <b
-      ><span>{{ item.name }}: </span></b
-    >
-    <span *ngFor="let elegido of item.elegidos">-{{ elegido.name }}</span>
-  </div>
-</div>
 
-<p-dialog
-  class="responsive-dialog"
-  header="Historia"
-  [modal]="true"
-  [(visible)]="dialog"
-  [style]="{ width: '90vw', 'max-width': '1200px' }"
->
-  <app-historic-data></app-historic-data>
-</p-dialog>
+  <app-dialog
+  [dialogHeader]="'Historia'"
+  [dialogVisible]="dialog"
+  [dialogType]="dialogType"
+  (onClose)="closeDialog()"
+></app-dialog>

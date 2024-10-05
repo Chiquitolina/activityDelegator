@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { DataService } from '../../services/data/data.service';
 import { CommonModule } from '@angular/common';
@@ -25,9 +25,11 @@ export class GraphsComponent {
   //graph configuration
   options: any = {};
 
-  constructor(public dataServ: DataService, private dbServ: IndexedDBService) {}
+  dataServ = inject(DataService)
+  _dbServ = inject(IndexedDBService)
+
   ngOnInit() {
-    this.dbServ.getAllTasks().subscribe({
+    this._dbServ.getAllTasks().subscribe({
       next: (tasks) => {
         const activityData: { [key: string]: { [key: string]: number } } = {};
 
@@ -121,4 +123,5 @@ export class GraphsComponent {
     // Función para oscurecer el color, puedes personalizarla
     return color; // Aquí podrías agregar lógica para oscurecer el color si es necesario
   }
+  
 }

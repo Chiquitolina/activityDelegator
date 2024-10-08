@@ -14,7 +14,7 @@ export class IndexedDBService {
   addTask(task: any): Observable<any> {
     const taskWithTimestamp = {
       ...task,
-      timestamp: new Date().toLocaleString(),
+      timestamp: new Date().toISOString(),
     };
 
     return this._dbServ.add('tasks', taskWithTimestamp).pipe(

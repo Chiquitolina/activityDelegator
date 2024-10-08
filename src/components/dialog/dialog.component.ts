@@ -11,8 +11,9 @@ import { DialogModule } from 'primeng/dialog';
 export class DialogComponent implements OnChanges {
   @Input() dialogHeader!: string;
   @Input() dialogVisible!: boolean;
+  @Input() dialogStyle?: any;
   @Input() dialogType!: string; // Tipo de diálogo para cargar el componente correcto
-  @Output() onClose = new EventEmitter<void>(); // Nuevo evento para propagar el cierre
+  @Output() onClose = new EventEmitter<void>();
 
   @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
 

@@ -296,9 +296,9 @@ export class DataService {
 
 
   sort(array: any[]): void {
-    this.dbServ.getLastThreeSorts().subscribe({
+    this.dbServ.getLastFourSorts().subscribe({
       next: (lastThreeSorts) => {
-        console.log('Últimos 3 sorteos:', lastThreeSorts);
+        console.log('Últimos 4 sorteos:', lastThreeSorts);
 
         this.cleanActivities();
 
@@ -345,7 +345,7 @@ export class DataService {
                 lastThreeSorts
               )
             ) {
-              if (retryCount > 20) {
+              if (retryCount > 30) {
                 console.error(
                   `Intentos máximos alcanzados para ${activity.name}, asignando participantes sin verificar repetición.`
                 );

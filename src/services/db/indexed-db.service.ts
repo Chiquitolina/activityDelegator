@@ -26,12 +26,12 @@ export class IndexedDBService {
     return this._dbServ.getAll('tasks');
   }
   
-  getLastThreeSorts(): Observable<any[]> {
+  getLastFourSorts(): Observable<any[]> {
     return this._dbServ.getAll('tasks').pipe(
       map((tasks) => {
         
         const reversedTasks = tasks.reverse();
-        return reversedTasks.slice(0, 3);
+        return reversedTasks.slice(0, 4); /*now 4*/
       })
     );
   }

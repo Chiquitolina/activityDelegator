@@ -179,7 +179,7 @@ export class DataService {
       realname: 'Antonio Fernandez',
       color: 'tan',
     },
-    {
+ /*   {
       id: 18,
       name: 'Pablo',
       realname: 'Pablo Pedemonte',
@@ -190,7 +190,7 @@ export class DataService {
       name: 'Mauri',
       realname: 'Mauricio',
       color: 'Wheat',
-    },
+    },*/
     {
       id: 20,
       name: 'Cami',
@@ -213,6 +213,18 @@ export class DataService {
       id: 23,
       name: 'Leonel',
       realname: 'Leonel',
+      color: 'MidnightBlue',
+    },
+    {
+      id: 24,
+      name: 'Pepe',
+      realname: 'Pepe',
+      color: 'MidnightBlue',
+    },
+    {
+      id: 25,
+      name: 'Iván',
+      realname: 'Iván',
       color: 'MidnightBlue',
     },
   ];
@@ -286,7 +298,7 @@ export class DataService {
   sort(array: any[]): void {
     this.dbServ.getLastThreeSorts().subscribe({
       next: (lastThreeSorts) => {
-      /*  console.log('Últimos 3 sorteos:', lastThreeSorts);*/
+        console.log('Últimos 3 sorteos:', lastThreeSorts);
 
         this.cleanActivities();
 

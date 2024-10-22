@@ -60,6 +60,12 @@
           [buttonIcon]="'pi pi-trash'"
           [buttonSeverity]="'danger'"
         ></app-button>
+        <app-button
+        [buttonStyle]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
+        (click)="deleteTask(task.timestamp)"
+        [buttonIcon]="'pi pi-print'"
+        [buttonSeverity]="'success'"
+      ></app-button>
       </td>
     </tr>
   </ng-template>

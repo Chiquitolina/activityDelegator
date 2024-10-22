@@ -53,10 +53,10 @@ export class HistoricDataComponent {
     this._dbServ.getAllTasks().subscribe({
       next: (tasks) => {
         this.tasks = tasks
-          .map(task => {
+          .map((task) => {
             // Verificamos si la fecha está en formato `toLocaleString()`
             let parsedTimestamp = task.timestamp;
-    
+
             // Si contiene '/', asumimos que es un formato `toLocaleString()`
             if (task.timestamp.includes('/')) {
               const isoDate = this.parseLocaleStringToISO(task.timestamp);
@@ -64,14 +64,18 @@ export class HistoricDataComponent {
                 parsedTimestamp = isoDate; // Reemplazamos el timestamp con el valor ISO
               }
             }
-    
+
             return {
               ...task,
               timestamp: parsedTimestamp, // Asignamos el nuevo timestamp (ISO si fue convertido)
             };
           })
-          .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).reverse(); // Ordenamos por fecha (ISO)
-    
+          .sort(
+            (a, b) =>
+              new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+          )
+          .reverse(); // Ordenamos por fecha (ISO)
+
         console.log(this.tasks); // Mostrar las tareas convertidas y ordenadas
       },
       error: (err) => {
@@ -80,18 +84,18 @@ export class HistoricDataComponent {
     });
 
     this._tasksUpdateSub = this._dbServ
-    .getTasksUpdateListener()
-    .subscribe(() => {
-      this._dbServ.getAllTasks().subscribe({
-        next: (tasks) => {
-          this.tasks = tasks.sort((a, b) => a.timestamp - b.timestamp);
-          console.log(tasks)
-        },
-        error: (err) => {
-          console.error('Error fetching tasks:', err);
-        },
+      .getTasksUpdateListener()
+      .subscribe(() => {
+        this._dbServ.getAllTasks().subscribe({
+          next: (tasks) => {
+            this.tasks = tasks.sort((a, b) => a.timestamp - b.timestamp);
+            console.log(tasks);
+          },
+          error: (err) => {
+            console.error('Error fetching tasks:', err);
+          },
+        });
       });
-    });
   }
 
   deleteTask(timestamp: string) {
@@ -103,6 +107,20 @@ export class HistoricDataComponent {
           'success',
           'Operación Exitosa',
           'Dato eliminado correctamente de la historia.'
+        );
+      },
+      error: (err) => {},
+    });
+  }
+
+  deleteAllTask() {
+    this._dbServ.deleteAllTask().subscribe({
+      next: () => {
+        this._appComp.showToast(
+          '',
+          'success',
+          'Operación Exitosa',
+          'Historia vaciada correctamente.'
         );
       },
       error: (err) => {},
@@ -125,16 +143,23 @@ export class HistoricDataComponent {
     this.dialogGraph = false;
   }
 
-   parseLocaleStringToISO(dateString: string): string | null {
+  parseLocaleStringToISO(dateString: string): string | null {
     try {
       // Asumimos el formato "dd/mm/yyyy, hh:mm:ss" para el `toLocaleString()`
       const [datePart, timePart] = dateString.split(', ');
       const [day, month, year] = datePart.split('/').map(Number);
       const [hours, minutes, seconds] = timePart.split(':').map(Number);
-  
+
       // Creamos un objeto Date con los valores obtenidos
-      const parsedDate = new Date(year, month - 1, day, hours, minutes, seconds);
-  
+      const parsedDate = new Date(
+        year,
+        month - 1,
+        day,
+        hours,
+        minutes,
+        seconds
+      );
+
       // Devolver la fecha en formato ISO
       return parsedDate.toISOString();
     } catch (error) {
@@ -142,5 +167,4 @@ export class HistoricDataComponent {
       return null; // Devolver null en caso de error
     }
   }
-
 }

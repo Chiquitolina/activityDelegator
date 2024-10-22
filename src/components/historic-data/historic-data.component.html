@@ -1,4 +1,4 @@
-<div class="d-flex flex-wrap justify-content-end w-100 p-2">
+<div class="d-flex flex-wrap justify-content-center w-100 p-2">
   <app-button
     [buttonLabel]="'Añadir manualmente'"
     [buttonStyle]="{
@@ -22,9 +22,29 @@
     }"
     (click)="showDialogGraph()"
     [buttonIcon]="'pi pi-eye'"
+    [isDisabled]="tasks.length == 0"
   >
   </app-button>
+  <app-button
+  [buttonLabel]="'Eliminar todo'"
+  [buttonStyle]="{
+    'margin-left': '0.5rem',
+    'border-radius': '0.5rem',
+    width: '15rem',
+    'margin-top': '0.5rem'
+  }"
+  (click)="deleteAllTask()"
+  [buttonIcon]="'pi pi-eye'"
+  [buttonSeverity]="'danger'"
+  [isDisabled]="tasks.length == 0"
+>
+</app-button>
 </div>
+@if (tasks.length == 0) {
+  <div class="mt-3 w-100 d-flex justify-content-center">
+  <span>No se encontraron resultados. Realice una asignación para ver los resultados.</span>
+</div>
+} @else {
 <p-table [value]="tasks" class="responsive-table" [style]="{ width: '100%' }">
   <ng-template pTemplate="header">
     <tr>
@@ -60,10 +80,17 @@
           [buttonIcon]="'pi pi-trash'"
           [buttonSeverity]="'danger'"
         ></app-button>
+        <app-button
+        [buttonStyle]="{ 'margin-left': '0.5rem', 'border-radius': '0.5rem' }"
+        (click)="deleteTask(task.timestamp)"
+        [buttonIcon]="'pi pi-print'"
+        [buttonSeverity]="'success'"
+      ></app-button>
       </td>
     </tr>
   </ng-template>
 </p-table>
+}
 <app-dialog
   [dialogHeader]="'Añadir dato manualmente'"
   [dialogVisible]="dialog"

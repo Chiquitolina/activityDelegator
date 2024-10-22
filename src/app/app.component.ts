@@ -45,7 +45,7 @@ interface Actividad {
     ToastModule,
     MultiSelectModule,
     CommonModule,
-    DialogComponent
+    DialogComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -67,10 +67,33 @@ export class AppComponent {
 
   personas!: any[];
 
+  countdown = 4;
+  showCountdown: boolean = false; // Variable para controlar la visibilidad
+
   constructor(
     public dataServ: DataService,
     private messageService: MessageService
   ) {}
+
+  startSort() {
+   /* this.countdown = 4;
+
+    const countdownInterval = setInterval(() => {
+      console.log('Cuenta regresiva:', this.countdown); // Puedes mostrar esto en la vista si prefieres
+
+      this.showCountdown = true;
+
+      this.countdown--; // Reduce el valor de la cuenta regresiva
+
+      if (this.countdown <= 0) {
+        clearInterval(countdownInterval); // Detén el intervalo cuando llegue a 0*/
+
+        // Llamada a la función `newSort` después del countdown
+        this.dataServ.newSort(this.dataServ.participants);
+       /* this.showCountdown = false;*/
+      }
+  /*  }, 1000); // Intervalo de 1 segundo*/
+/*}*/
 
   showDialog() {
     this.dialog = true;
@@ -105,11 +128,10 @@ export class AppComponent {
     }
   }*/
 
-    
-    closeDialog() {
-      this.dialog = false;
-      console.log('Diálogo cerrado. Estado de la variable dialog:', this.dialog);
-    }
+  closeDialog() {
+    this.dialog = false;
+    console.log('Diálogo cerrado. Estado de la variable dialog:', this.dialog);
+  }
 
   removeActivityAndShowToast(item: any, selectedActivity: any) {
     this.dataServ.removeActivity(item, selectedActivity);

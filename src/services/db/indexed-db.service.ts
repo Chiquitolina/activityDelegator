@@ -6,10 +6,9 @@ import { Observable, Subject, tap, map } from 'rxjs';
   providedIn: 'root',
 })
 export class IndexedDBService {
-
   private $tasksUpdated = new Subject<void>(); // Subject para emitir actualizaciones
 
-  private _dbServ = inject(NgxIndexedDBService)
+  private _dbServ = inject(NgxIndexedDBService);
 
   addTask(task: any): Observable<any> {
     const taskWithTimestamp = {
@@ -17,19 +16,18 @@ export class IndexedDBService {
       timestamp: new Date().toISOString(),
     };
 
-    return this._dbServ.add('tasks', taskWithTimestamp).pipe(
-      tap(() => this.$tasksUpdated.next())
-    );
+    return this._dbServ
+      .add('tasks', taskWithTimestamp)
+      .pipe(tap(() => this.$tasksUpdated.next()));
   }
 
   getAllTasks(): Observable<any[]> {
     return this._dbServ.getAll('tasks');
   }
-  
+
   getLastFourSorts(): Observable<any[]> {
     return this._dbServ.getAll('tasks').pipe(
       map((tasks) => {
-        
         const reversedTasks = tasks.reverse();
         return reversedTasks.slice(0, 4); /*now 4*/
       })
@@ -39,6 +37,16 @@ export class IndexedDBService {
   deleteTask(timestamp: string): Observable<any> {
     return this._dbServ.delete('tasks', timestamp);
   }
+
+  deleteAllTask(): Observable<any> {
+    return this._dbServ.clear('tasks').pipe(
+      tap(() => {
+        // Emitir la actualización a los suscriptores después de vaciar las tareas
+        this.$tasksUpdated.next();
+      })
+    );
+  }
+  
 
   getTasksUpdateListener() {
     return this.$tasksUpdated.asObservable();

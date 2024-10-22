@@ -353,7 +353,7 @@ export class DataService {
 
           // Para asegurarte de que Ivan no esté en Levanta y barre y Lava
           if (
-            (activity.name === 'Levanta y barre' &&
+            (activity.name === 'Cierra cocina' &&
               activity.elegidos
                 .map((elegido: any) => elegido.name)
                 .includes('Iván')) ||
